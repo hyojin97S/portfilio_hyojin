@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RECYCLE BIN</title>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <style>
+    @font-face {
+      font-family: 'GangwonEduSaeeum_OTFMediumA';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEduSaeeum_OTFMediumA.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+  * {margin: 0; padding: 0;}
+  li {list-style: none;}
+  a {text-decoration: none;}
+  body {font-family: 'GangwonEduSaeeum_OTFMediumA';}
+
+  .modal_4 {
+  width: 1890px;
+  height: 923px;
+  margin: 0 auto;
+  padding: 5px;
+  border-radius: 5px;
+}
+.menu .btn_a img {width: 15px; height: 15px; margin-right: 5px;}
+
+.menu {display: flex; width: 1890px; height: 40px; background-color: lightblue;}
+.menu img {margin-left: 5px; margin-top: 5px; width: 30px; height: 30px;}
+.menu p {margin-left: 10px; margin-top: 15px; font-size: 20px; color: #fff; line-height: .5;}
+.menu button {
+  position: relative;
+  left: 1645px;
+  width: 30px;
+  height: 30px;
+  margin-top: 5px;
+  border: none;
+  margin: 5px;
+  background: lightblue;
+}
+.menu button:hover {background-color: darkgrey;}
+.menu .btn1:hover {background-color: red; color: #fff;}
+
+.trash {
+  display: flex;
+  justify-content: space-around;
+  border: 1px solid #ccc; 
+  background-color: #fff; 
+  padding: 20px;
+  border-bottom: none;
+}
+.trash_file:hover {border: 1px dotted blue;}
+.trash_file p {font-size: 20px; text-align: center; margin-top: 10px;}
+.trash_file_a img {position: relative; left: 15px;}
+
+.trash_file_a:hover {border: 1px dotted blue;}
+.trash_file_a p {font-size: 20px; text-align: center; margin-top: 10px;}
+
+.trash_1 {
+  display: flex;
+  justify-content: space-around;
+  border: 1px solid #ccc; 
+  background-color: #fff; 
+  padding: 20px;
+  border-top: none;
+}
+.trash_memo:hover {border: 1px dotted blue;} 
+.trash_memo p {font-size: 20px; text-align: center; margin-top: 10px;}
+  </style>
+</head>
+<body>
+  <div class="modal_4">
+    <div class="menu">
+      <img src="./images/RECYCLE_BIN.png" alt="">
+      <p>RECYCLE BIN</p>
+      <button>_</button>
+      <button class="btn_a"><img src="./images/전체화면.png" alt=""></button>
+      <button class="btn1">X</button>
+    </div>
+    <div class="trash">
+      <div class="trash_file">
+        <img src="./images/File_img.png" alt="">
+        <p>과도한 신중함</p>
+      </div>
+      <div class="trash_file">
+        <img src="./images/File_img.png" alt="">
+        <p>감정 표현 부족</p>
+      </div>
+      <div class="trash_file">
+        <img src="./images/File_img.png" alt="">
+        <p>우유부단함</p>
+      </div>
+      <div class="trash_file">
+        <img src="./images/File_img.png" alt="">
+        <p>소극적인 자세</p>
+      </div>
+      <div class="trash_file_a">
+        <img src="./images/File_img.png" alt="">
+        <p>사람들 앞에서 긴장</p>
+      </div>
+      <div class="trash_file_a">
+        <img src="./images/File_img.png" alt="">
+        <p>새로운 도전 두려움</p>
+      </div>
+      <div class="trash_file">
+        <img src="./images/File_img.png" alt="">
+        <p>비판의 민감</p>
+      </div>
+    </div>
+    <div class="trash_1">
+      <div class="trash_memo">
+        <img src="./images/Memo_img.png" alt="">
+        <p>내성적인</p>
+      </div>
+      <div class="trash_memo">
+        <img src="./images/Memo_img.png" alt="">
+        <p>소극적인</p>
+      </div>
+      <div class="trash_memo">
+        <img src="./images/Memo_img.png" alt="">
+        <p>불확실한</p>
+      </div>
+      <div class="trash_memo">
+        <img src="./images/Memo_img.png" alt="">
+        <p>긴장하는</p>
+      </div>
+      <div class="trash_memo">
+        <img src="./images/Memo_img.png" alt="">
+        <p>자신없는</p>
+      </div>
+      <div class="trash_memo">
+        <img src="./images/Memo_img.png" alt="">
+        <p>회피적인</p>
+      </div>
+      <div class="trash_memo">
+        <img src="./images/Memo_img.png" alt="">
+        <p>방어적인</p>
+      </div>
+    </div>
+
+    <script>
+      $(function() {
+        $(".btn_a").on("click", function() {
+          window.location.href = 'mainPage.html?modal_4=true';
+      });
+    });
+    </script>
+    
+    <script>
+      $(function(){
+    $(".btn1").on("click",function(){
+      window.location.href = 'mainPage.html';
+      })
+    });
+    </script>
+</body>
+</html>

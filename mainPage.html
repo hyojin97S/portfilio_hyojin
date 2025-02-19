@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>portfolio</title>
+  <link rel="stylesheet" href="./css/main.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script defer src="./js/main.js"></script>
+</head>
+<body>
+  <div id="wrap">
+    <header>
+      <h1>MADE BY HYOJIN</h1>
+      <p>
+        이 포트폴리오는 "윈도우 95" 스타일을 현대적 감각으로 재해석한 디자인 작업들을 소개하는 공간입니다. 
+      </p>
+    </header>
+    <div class="container">
+      <div class="menu">
+        <div class="list_1">
+          <a href="#"><img class="about" src="./images/ABOUT ME.png" alt=""><span>내 정보</span></a>
+        </div> 
+        <div class="list_2">
+          <a href="#"><img class="skil" src="./images/SKILLS.png" alt=""><span class="sk">기술</span></a>
+        </div>      
+        <div class="list_3">
+          <a href="#"><img class="proj" src="./images/PROJECT.png" alt=""><span>프로젝트</span></a>
+        </div>
+        <div class="list_4">
+          <a href="#"><img class="msgs" src="./images/CONTACT.png" alt=""><span>메시지</span></a>
+        </div>
+        <div class="list_5">
+          <a href="#"><img src="./images/INTERNET.png" alt=""><span>인터넷</span></a>
+        </div>
+        <div class="list_6">
+          <a href="#"><img class="recy" src="./images/RECYCLE_BIN.png" alt=""><span>휴지통</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="window">
+      <ul>
+        <li><a href="./aboutMe.html"><img src="./images/ABOUT ME.png" alt="">내 정보</a></li>
+        <li><a href="./SKILLS.html"><img src="./images/SKILLS.png" alt="">기술</a></li>
+        <li><a href="./project.html"><img src="./images/PROJECT.png" alt="">프로젝트</a></li>
+        <li><a href="./contact.html"><img src="./images/CONTACT.png" alt="">메시지</a></li>
+        <li><a href="https://github.com/hyojin97S/starbucks_template_project"><img src="./images/INTERNET.png" alt="">인터넷</a></li>
+        <li><a href="./recycleBin.html"><img src="./images/RECYCLE_BIN.png" alt="">휴지통</a></li>
+      </ul>
+    </div>
+    <footer>
+      <div class="start-bar">
+        <div class="btn">
+          <a href="#"><img src="./images/원도우.png" alt=""></a>
+          <p>시작</p>
+        </div>
+        <div class="gallery">
+          <img src="./images/INTERNET.png" alt="">
+          <img src="./images/CONTACT.png" alt="">
+          <img src="./images/지구.png" alt="">
+        <div class="gallery_1">
+            <img src="./images/영문.png" alt="">
+            <img src="./images/소리.png" alt="">
+            <h1 id="clock"></h1>
+          </div>
+        </div>
+      </div>
+      <div class="date-container">
+        <p id="current-date"></p>
+    </div>
+    </footer>
+  </div>
+  
+
+  <div class="modal">
+    <div class="box">
+      <div class="box_tit">
+        <img src="./images/ABOUT ME.png" alt="">
+        <p>ABOUT ME</p>
+      </div>
+      <div class="box_btn">
+        <button>_</button>
+        <button><a href="./aboutMe.html">ㅁ</a></button>
+        <button class="btn1">X</button>
+      </div>
+    </div>
+    <div class="box0">
+      <div class="box1">
+        <img src="./images/hj.jpg" alt="">
+        <ul>
+          <li>NAME : Shin Hyo Jin</li>
+          <li>BIRTH : 1997.08.25.</li>
+          <li>LIVE IN : Daejeon</li>
+          <li>PHONE : 010-5483-9937</li>
+          <li>E-MAIL : gywls7948 @ naver.com</li>
+          <li>SNS : <a href="https://www.instagram.com/hyohyo__97/profilecard/?igsh=ZW1ud2JmdHRiMmh5">INSTAGRAM</a></li>
+        </ul>
+      </div>
+      <div class="box2">
+        <h1>Graduated</h1>
+        <p>2016.02 - 대전복수고등학교 졸업</p>
+        <p>2025.02 - 한양사이버대학교(영어학과) 4년제 졸업</p>
+      </div>
+      <div class="box3">
+        <h1>Greeting</h1>
+        <p>안녕하세요. 저는 프론트엔드 개발을 공부하고 있습니다. HTML, CSS, JavaScript를 활용해 사용자 친화적인 웹 페이지를 만드는 것에 큰 관심을 가지고 있으며, 앞으로 다양한 경험을 쌓아 더 성장해 나가고 싶습니다. 감사합니다.</p>
+      </div>
+      <div class="box4">
+        <h1>Carrer</h1>
+        <p>근무기간 / 근무회사 / 담당업무</p>
+        <p>2016.01 ~ 2017.06 / 파리바게트 / 고객응대 및 매장관리</p>
+        <p>2017.03 ~ 2019.03 / 달콤한 삼겹살 / 홀서빙</p>
+        <p>2019.05 ~ 2020.09 / (주)미드키스 / 경영기획 및 급여관리</p>
+        <p>2021.02 ~ 2023.12 / 뚜레쥬르 / 고객응대 및 매장관리</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal_1">
+    <div class="list">
+      <div class="list_tit">
+        <img src="./images/SKILLS.png" alt="">
+        <p>SKILLS</p>
+      </div>
+      <div class="list_btn">
+        <button>_</button>
+        <button><a href="./SKILLS.html">ㅁ</a></button>
+        <button class="btn1">X</button>
+      </div>
+    </div>
+    <div class="list2">
+      <div class="skill">
+        <h1>MY SKILLS</h1>
+        <p>
+          <img src="./images/img1.jpg" alt="">
+          <span>
+            HTML: 웹 표준을 준수하고, 기본적인 마크업을 지키며 시멘틱 엘리먼트를 적절히 활용하여 웹 페이지를 구성할 수 있습니다.
+            또한, 웹 사이트의 호환성, 접근성, 검색 엔진 최적화 등 다양한 측면에서 효과적인 웹디자인을 제공할 수 있습니다. 
+          </span>
+        </p>
+        <p>
+          <img src="./images/img2.jpg" alt="">
+          <span>
+            CSS: HTML을 기반으로 스타일과 동적인 효과를 구현할 수 있습니다. 웹페이지의 시각적인 디자인과 사용자 경험을 향상시킬 수 있으며, 다양한 디바이스와 환경에서 호환성을 유지하는 웹 디자인을 제공할 수 있습니다. 
+          </span>
+        </p>
+        <p>
+          <img src="./images/img3.jpg" alt="">
+          <span>
+            JavaScript: 다양한 메서드와 기능을 이용하여 동적인 효과를 구현해 낼 수 있습니다. 이를 통해 웹 페이지의 상호작용성과 사용자 경험을 향상시킬 수 있으며, 다양한 웹 프로젝트에서 효과적인 기능을 개발할 수 있습니다. 
+          </span>
+        </p>
+        <p>
+          <img src="./images/img4.png" alt="">
+          <span class="jq">
+            Jquery : 플러그인을 활용하여 웹 페이지에 동적인 효과를 구현할 수 있습니다. 애니메이션 효과, 이벤트 처리와 상호작용, AJAX 호출과 데이터 처리, 그리고 DOM 조작과 선택자 활용을 통해 웹 페이지를 더욱 생동감 있고 효과적으로 만들어 내 수 있습니다. 
+          </span>
+        </p>
+        <p>
+          <img src="./images/img5.png" alt="">
+          <span class="ps">
+            Photoshop : 프로그램의 기본 기능을 전반적으로 다룰 수 있으며, 다양한 툴을 사용하여 원하는 이미지를 만들어 낼 수 있음. 
+            이를 통해 이미지의 퀄리티와 시각적 효과를 향상시킬 수 있으며, 디자인 요구사항에 맞는 이미지를 제작할 수 있습니다. 
+            또한, 색감 조정, 텍스트 스타일링, 이미지 합성 등의 작업을 통해 원하는 시각적 효과를 구현할 수 있으며, 디자인 작업에 있어서 크리에이티브한 아이디어를 구체적으로 표현할 수 있습니다. 
+          </span>
+        </p>
+        <p>
+          <img src="./images/img6.png" alt="">
+          <span>
+            figma : Figma라는 도구를 사용하여 UI/UX 인터랙션을 구현할 수 있습니다.
+            Figma는 컴포넌트, 텍스트 스타일, 컬러스타일 등의 기본 기능을 제공하며, 이를 활용하여 웹 및 모바일 애플리케이션의 디자인을 구현할 수 있습니다. 
+          </span>
+        </p>
+      </div>
+      <div class="Lisence">
+        <h1>ITQ 국가공인 정보기술자격</h1>
+        <p>
+          <img src="./images/img01.png" alt="">
+          <span>
+            한글 : 기본 문서 작성 및 편집을 효과적으로 수행할 수 있으며, 다양한 프로젝트에서 원활한 문서 작업을 수행할 수 있습니다.
+          </span>
+        </p>
+        <p>
+          <img src="./images/img02.png" alt="">
+          <span>
+            엑셀 : 중급 수준의 함수와 단축키 사용, 그리고 피벗테이블 등의 데이터 분석 기능을 활용할 수 있습니다. 
+          </span>
+        </p>
+        <p>
+          <img src="./images/img03.png" alt="">
+          <span class="power">
+            파워포인트 : 다양한 보고서, 기획서, 제안서 등을 자유롭게 만들 수 있으며, 파워포인트를 활용하여 도표, 도형, 폰트 등 다양한 요소를 활용하여 보고서 템플릿을 제작할 수 있습니다. 또한, 다양한 스타일의 도표를 만들어 데이터를 시각화하고, 다양한 도형을 활용하여 디자인을 꾸밀 수 있습니다. 또한, 다양한 폰트와 텍스트 스타일을 사용하여 보고서의 디자인을 개성 있게 구성할 수 있습니다.
+          </span>
+        </p>
+      </div>
+    </div>
+</div>
+
+<div class="modal_2">
+  <div class="item">
+    <div class="item_tit">
+      <img src="./images/PROJECT.png" alt="">
+      <p>PROJECTE</p>
+    </div>
+    <div class="item_btn">
+      <button>_</button>
+      <button class="btn_a"><a href="./project.html">ㅁ</a></button>
+      <button class="btn1">X</button>
+    </div>
+  </div>
+  <div class="item0">
+    <div class="item1">
+      <h1>개인 프로젝트(1)</h1>
+      <div class="text">
+        <a href="../효진/2024_과제/메인페이지/index.html"><img src="./images/projecte1.png" alt=""></a>
+        <p>
+          이 프로젝트는 메인 페이지를 바탕으로 구현한 웹 페이지로, 메인 페이지에서 사이트의 주요 기능을 소개하며 <span>회원가입, 로그인, 프로필</span> 관리 기능을 포함한 프로젝트입니다.
+        </p>
+      </div>
+      <div class="skills">
+        <h2>SKILL :</h2>
+        <img src="./images/skill1.png" alt="" class="img_a">
+        <img src="./images/skill2.png" alt="" class="img_a">
+        <img src="./images/skill3.png" alt="" class="img_a">
+      </div>
+    </div>
+    <div class="item1">
+      <h1>개인 프로젝트(2)</h1>
+      <div class="text">
+        <a href="../효진/2024 반응형/index.html"><img src="./images/projecte2.png" alt=""></a>
+        <p>
+          이 프로젝트는 메인 페이지와 함께 <span>뉴스, 영화, 정보</span> 관련 페이지를 구현한 웹 페이지로, 각 페이지는 해당 주제에 맞는 콘텐츠를 제공합니다. 이 프로젝트는 <span>반응형 디자인</span>을 적용하여 다양한 화면 크기에서 최적화된 사용자 경험을 제공한 프로젝트입니다.
+        </p>
+      </div>
+      <div class="skills">
+        <h2>SKILL :</h2>
+        <img src="./images/skill1.png" alt="" class="img_a">
+        <img src="./images/skill2.png" alt="" class="img_a">
+        <img src="./images/skill3.png" alt="" class="img_a">
+        <img src="./images/skill4.png" alt="" class="img_a">
+      </div>
+    </div>
+    <div class="item1">
+      <h1>개인 프로젝트(3)</h1>
+      <div class="text">
+        <a href="../효진/Digimon_Page/index.html"><img src="./images/game_project.png" alt=""></a>
+        <p>
+          이 프로젝트는 디지몬 게임 사이트를 참조하여 웹 페이지 디자인을 구성하여 디자인을 개선한 프로젝트입니다.
+        </p>
+      </div>
+      <div class="skills">
+        <h2>SKILL :</h2>
+        <img src="./images/skill1.png" alt="" class="img_a">
+        <img src="./images/skill2.png" alt="" class="img_a">
+        <img src="./images/skill3.png" alt="" class="img_a">
+      </div>
+    </div>
+    <div class="item1">
+      <h1>팀별 프로젝트(4)</h1>
+      <div class="text">
+        <a href="../효진/AppleStorePage/index.html"><img src="./images/projecte3.png" alt=""></a>
+        <p>
+          이 프로젝트는 애플 사이트의 메인 페이지를 참고해 웹 페이지를 디자인하고, 반응형 웹 디자인을 적용해 다양한 기기에서 최적화된 경험을 제공하는 작업입니다. HTML, CSS, JavaScript등을 사용해 레이아웃과 기능을 구현한 프로젝트입니다.
+        </p>
+      </div>
+      <div class="skills">
+        <h2>SKILL :</h2>
+        <img src="./images/skill1.png" alt="" class="img_a">
+        <img src="./images/skill2.png" alt="" class="img_a">
+        <img src="./images/skill3.png" alt="" class="img_a">
+        <img src="./images/skill4.png" alt="" class="img_a">
+      </div>
+    </div>
+    <div class="item1">
+      <h1>포토샵 프로젝트(5)</h1>
+      <div class="text">
+        <a href="../효진/2024 과제 포토샵/index.html"><img src="./images/projecte5.png" alt=""></a>
+        <p>
+          이 프로젝트는 포토샵과 피그마를 활용하여 이벤트에 관한 배너를 자유롭게 제작한 작업입니다. 제작한 배너는 <span>정부부처, 은행, 대기업, 자유</span> 소재와 <span>카드뉴스, 명함</span> 소재를 반영하여 디자인한 프로젝트 입니다.
+        </p>
+      </div>
+      <div class="skills">
+        <h2>SKILL :</h2>
+        <img src="./images/img5.png" alt="" class="img_b">
+        <img src="./images/img6.png" alt="" class="img_b">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal_3">
+  <div class="tit">
+    <div class="tit_tit">
+      <img src="./images/CONTACT.png" alt="">
+      <p>CONTACT</p>
+    </div>
+    <div class="tit_btn">
+      <button>_</button>
+      <button class="btn_a"><a href="./contact.html">ㅁ</a></button>
+      <button class="btn1">X</button>
+    </div>
+  </div>
+  <div class="gb">
+    <div class="guestbook_form">
+      <h1>방명록</h1>
+      <form id="guestbook" class="guestbook">
+        <p>이름 : <input type="text" id="name" required/></p>
+        <p>메시지 : <textarea id="message"></textarea></p>
+        <button class="btn_0" type="submit">전송</button>
+      </form>
+      <div class="message_board">
+        <h2>게시판</h2>
+        <ul id="messages_list"></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal_4">
+  <div class="btn_menu">
+    <div class="btn_menu_tit">
+      <img src="./images/CONTACT.png" alt="">
+      <p>RECYCLE BIN</p>
+    </div>
+    <div class="btn_menu_btn">
+      <button>_</button>
+      <button class="btn_a"><a href="./recycleBin.html">ㅁ</a></button>
+      <button class="btn1">X</button>
+    </div>
+  </div>
+  <div class="TH">
+    <div class="trash">
+      <div class="trash_file">
+        <img src="./images/File_img.png" alt="">
+        <p>과도한 신중함</p>
+      </div>
+      <div class="trash_file">
+        <img src="./images/File_img.png" alt="">
+        <p>감정 표현부족</p>
+      </div>
+      <div class="trash_file">
+        <img src="./images/File_img.png" alt="">
+        <p>우유부단함</p>
+      </div>
+      <div class="trash_file">
+        <img src="./images/File_img.png" alt="">
+        <p>소극적인 자세</p>
+      </div>
+      <div class="trash_file">
+        <img src="./images/File_img.png" alt="">
+        <p>사람들 앞에서 <br>긴장</p>
+      </div>
+      <div class="trash_file">
+        <img src="./images/File_img.png" alt="">
+        <p>새로운 도전 <br>두려움</p>
+      </div>
+      <div class="trash_file">
+      <img src="./images/File_img.png" alt="">
+      <p>비판의 민감</p>
+    </div>
+  </div>
+  <div class="trash_1">
+    <div class="trash_memo">
+      <img src="./images/Memo_img.png" alt="">
+      <p>내성적인</p>
+    </div>
+    <div class="trash_memo">
+      <img src="./images/Memo_img.png" alt="">
+      <p>소극적인</p>
+    </div>
+    <div class="trash_memo">
+      <img src="./images/Memo_img.png" alt="">
+      <p>불확실한</p>
+    </div>
+    <div class="trash_memo">
+      <img src="./images/Memo_img.png" alt="">
+      <p>긴장하는</p>
+    </div>
+    <div class="trash_memo">
+      <img src="./images/Memo_img.png" alt="">
+      <p>자신없는</p>
+    </div>
+    <div class="trash_memo">
+      <img src="./images/Memo_img.png" alt="">
+      <p>회피적인</p>
+    </div>
+    <div class="trash_memo">
+      <img src="./images/Memo_img.png" alt="">
+      <p>방어적인</p>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

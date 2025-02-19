@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CONTACT</title>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <style>
+  @font-face {
+    font-family: 'GangwonEduSaeeum_OTFMediumA';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEduSaeeum_OTFMediumA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  * {margin: 0; padding: 0;}
+  li {list-style: none;}
+  a {text-decoration: none;}
+  body {font-family: 'GangwonEduSaeeum_OTFMediumA';}
+
+  .modal_3 {
+  width: 1890px;
+  height: 923px;
+  margin: 0 auto;
+  padding: 5px;
+  border-radius: 5px;
+  overflow-x: hidden;
+}
+.tit .btn_a img {width: 15px; height: 15px; margin-right: 5px;}
+
+.tit {display: flex; width: 1888px; height: 40px; background-color: lightblue;}
+.tit img {margin-left: 5px; margin-top: 5px; width: 30px; height: 30px;}
+.tit p {margin-left: 10px; margin-top: 15px; font-size: 20px; color: #fff; line-height: .5;}
+.tit button {
+    position: relative;
+    left: 1660px;
+    width: 30px;
+    height: 30px;
+    margin-top: 5px;
+    border: none;
+  margin: 5px;
+  background: lightblue;
+}
+.tit button:hover {background-color: darkgrey;}
+.tit .btn1:hover {background-color: red; color: #fff;}
+
+.guestbook_form {
+  padding: 20px;
+  background: #fff;
+}
+.guestbook {
+  position: relative;
+  left: 520px;
+  width: 800px;
+  height: 330px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background: beige;
+}
+.guestbook_form h1 {text-align: center; font-size: 50px; margin-bottom: 10px;}
+.guestbook_form p {font-size: 20px; font-weight: bold; margin: 10px 20px;}
+.guestbook_form input {
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 20px;
+  width: 200px;
+  font-family: 'GangwonEduSaeeum_OTFMediumA';
+}
+.guestbook_form textarea {
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 20px;
+  width: 740px;
+  height: 150px;
+  font-family: 'GangwonEduSaeeum_OTFMediumA';
+}
+.guestbook_form .btn {
+  float: right;
+  margin-right: 20px;
+  width: 60px;
+  height: 40px;
+  border-radius: 5px;
+  font-size: 30px;
+  border: none;
+  cursor: pointer;
+  background: #fff;
+  color: #000;
+  font-family: 'GangwonEduSaeeum_OTFMediumA';
+}
+.guestbook_form button:hover {background: burlywood; color: #fff;}
+
+.message_board {border-top: 1px solid silver; margin-top: 50px;}
+.message_board h2 {position: relative; left: 520px; font-size: 50px; margin-top: 20px;}
+.messages_list {list-style-type: none; padding: 0;}
+
+#messages_list li {
+  position: relative;
+  left: 520px;
+  width: 780px;
+  height: 170px;
+  margin: 20px 0;
+  padding: 10px;
+  background: beige;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+#messages_list button {
+  position: relative;
+  left: 670px;
+  top: 10px;
+  margin-left: 10px;
+  width: 40px;
+  height: 30px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #000;
+  font-family: 'GangwonEduSaeeum_OTFMediumA';
+  font-size: 20px;
+}
+#messages_list button:hover {
+  background: burlywood;
+  color: #fff;
+}
+#messages_list li .text {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid #fff;
+}
+#messages_list li strong {
+  font-size: 25px;
+  margin: 5px 5px;
+}
+#messages_list li p {margin: 5px 10px;}
+#messages_list li .msg {
+  padding: 10px;
+  width: 760px;
+  position: relative;
+  right: 10px;
+  overflow-x: hidden;
+  height: 50px;
+}
+  </style>
+
+</head>
+<body>
+  <div class="modal_3">
+    <div class="tit">
+      <img src="./images/CONTACT.png" alt="">
+      <p>CONTACT</p>
+      <button>_</button>
+      <button class="btn_a"><img src="./images/전체화면.png" alt=""></button>
+      <button class="btn1">X</button>
+    </div>
+    <div class="guestbook_form">
+      <h1>방명록</h1>
+      <form id="guestbook" class="guestbook">
+        <p>이름 : <input type="text" id="name" required/></p>
+        <p>메시지 : <textarea id="message"></textarea></p>
+        <button class="btn" type="submit">전송</button>
+      </form>
+      <div class="message_board">
+        <h2>게시판</h2>
+        <ul id="messages_list"></ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    displayMessages();
+
+    document.getElementById('guestbook').addEventListener('submit', function (event) {
+      event.preventDefault();
+      
+      const name = document.getElementById('name').value;
+      const message = document.getElementById('message').value;
+
+      if (name && message) {
+        const messageObj = {
+          name,
+          message,
+          date: new Date().toLocaleString(),
+          id: Date.now()
+        };
+
+        const messages = getMessages();
+        messages.push(messageObj);
+        saveMessages(messages);
+        displayMessages();
+        resetForm();
+      } else {
+        alert("이름과 메시지를 모두 입력해주세요.");
+      }
+    });
+
+    function displayMessages() {
+      const messagesList = document.getElementById('messages_list');
+      messagesList.innerHTML = '';
+
+      getMessages().forEach(msg => {
+        const messageItem = document.createElement('li');
+        messageItem.innerHTML = `
+          <div class="text">
+          <strong>${msg.name}</strong>                
+          <p>${msg.date})</p> 
+          </div>
+          <p class="msg">${msg.message}</p>
+          <button class="edit" onclick="editMessage(${msg.id})">수정</button>
+          <button class="delete" onclick="deleteMessage(${msg.id})">삭제</button>
+        `;
+        messagesList.appendChild(messageItem);
+      });
+    }
+
+    window.editMessage = function(id) {
+      const messages = getMessages();
+      const message = messages.find(msg => msg.id === id);
+      document.getElementById('name').value = message.name;
+      document.getElementById('message').value = message.message;
+      deleteMessage(id);
+    };
+
+    window.deleteMessage = function(id) {
+      const messages = getMessages().filter(msg => msg.id !== id);
+      saveMessages(messages);
+      displayMessages();
+    };
+
+    function getMessages() {
+      return JSON.parse(localStorage.getItem('messages')) || [];
+    }
+
+    function saveMessages(messages) {
+      localStorage.setItem('messages', JSON.stringify(messages));
+    }
+
+    function resetForm() {
+      document.getElementById('name').value = '';
+      document.getElementById('message').value = '';
+    }
+  });
+  </script>
+
+<script>
+  $(function() {
+    $(".btn_a").on("click", function() {
+      window.location.href = 'mainPage.html?modal_3=true';
+  });
+});
+</script>
+
+<script>
+  $(function(){
+$(".btn1").on("click",function(){
+  window.location.href = 'mainPage.html';
+  })
+});
+</script>
+</body>
+</html>

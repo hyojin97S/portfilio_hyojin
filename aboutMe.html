@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ABOUT ME</title>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <style>
+    @font-face {
+      font-family: 'GangwonEduSaeeum_OTFMediumA';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEduSaeeum_OTFMediumA.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+  * {margin: 0; padding: 0;}
+  li {list-style: none;}
+  a {text-decoration: none;}
+  body {font-family: 'GangwonEduSaeeum_OTFMediumA';}
+
+  .modal {
+  width: 1890px;
+  height: 923px;
+  margin: 0 auto;
+  padding: 5px;
+  border-radius: 5px;
+}
+.box .btn_a img {width: 15px; height: 15px; margin-right: 5px;}
+
+.box {display: flex; width: 1890px; height: 40px; background-color: lightblue;}
+.box img {margin-left: 5px; margin-top: 5px; width: 30px; height: 30px;}
+.box p {margin-left: 10px; margin-top: 15px; font-size: 20px; color: #fff; line-height: .5;}
+.box button {
+  position: relative;
+  left: 1660px;
+  width: 30px;
+  height: 30px;
+  margin-top: 5px;
+  border: none;
+  margin: 5px;
+  background: lightblue;
+}
+.box button:hover {background-color: darkgrey;}
+.box .btn1:hover {background-color: red; color: #fff;}
+
+.box1 {display: flex; padding: 20px; border: 1px solid #ccc; background-color: #fff;}
+.box1 img {width: 300px; height: 300px; border-radius: 15px;}
+.box1 ul {
+  margin-top: 20px;
+  margin-left: 40px;
+  font-size: 30px;
+  font-weight: 700;
+}
+.box1 ul li {margin-bottom: 10px;}
+.box1 ul li a {color: #000;}
+.box1 ul li a:hover {color: silver;}
+
+.box2 {border: 1px solid #ccc; background-color: #fff; padding: 20px;}
+.box2 h1 {font-size: 30px;}
+.box2 p {font-size: 30px;}
+
+.box3 {border: 1px solid #ccc; background-color: #fff; padding: 20px;}
+.box3 h1 {font-size: 30px;}
+.box3 p {font-size: 25px;}
+
+.box4 {border: 1px solid #ccc; background-color: #fff; padding: 20px;}
+.box4 h1 {font-size: 30px;}
+.box4 p {font-size: 25px;}
+  </style>
+</head>
+<body>
+  <div class="modal">
+      <div class="box">
+        <img src="./images/ABOUT ME.png" alt="">
+        <p>ABOUT ME</p>
+        <button>_</button>
+        <button class="btn_a"><img src="./images/전체화면.png" alt=""></button>
+        <button class="btn1">X</button>
+      </div>
+      <div class="box1">
+        <img src="./images/hj.jpg" alt="">
+        <ul>
+          <li>NAME : Shin Hyo Jin</li>
+          <li>BIRTH : 1997.08.25.</li>
+          <li>LIVE IN : Daejeon</li>
+          <li>PHONE : 010-5483-9937</li>
+          <li>E-MAIL : gywls7948 @ naver.com</li>
+          <li>SNS : <a href="https://www.instagram.com/hyohyo__97/profilecard/?igsh=ZW1ud2JmdHRiMmh5">INSTAGRAM</a></li>
+        </ul>
+      </div>
+      <div class="box2">
+        <h1>Graduated</h1>
+        <p>2016.02 - 대전복수고등학교 졸업</p>
+        <p>2025.02 - 한양사이버대학교(영어학과) 4년제 졸업</p>
+      </div>
+      <div class="box3">
+        <h1>Greeting</h1>
+        <p>안녕하세요. 저는 프론트엔드 개발을 공부하고 있습니다. HTML, CSS, JavaScript를 활용해 사용자 친화적인 웹 페이지를 만드는 것에 큰 관심을 가지고 있으며, 앞으로 다양한 경험을 쌓아 더 성장해 나가고 싶습니다. 감사합니다.</p>
+      </div>
+      <div class="box4">
+        <h1>Carrer</h1>
+        <p>근무기간 / 근무회사 / 담당업무</p>
+        <p>2016.01 ~ 2017.06 / 파리바게트 / 고객응대 및 매장관리</p>
+        <p>2017.03 ~ 2019.03 / 달콤한 삼겹살 / 홀서빙</p>
+        <p>2019.05 ~ 2020.09 / (주)미드키스 / 경영기획 및 급여관리</p>
+        <p>2021.02 ~ 2023.12 / 뚜레쥬르 / 고객응대 및 매장관리</p>
+      </div>
+  </div>
+
+  <script>
+    $(function() {
+      $(".btn_a").on("click", function() {
+        window.location.href = 'mainPage.html?modal=true';
+    });
+  });
+  </script>
+  
+  <script>
+    $(function(){
+  $(".btn1").on("click",function(){
+    window.location.href = 'mainPage.html';
+    })
+  });
+  </script>
+  
+</body>
+</html>

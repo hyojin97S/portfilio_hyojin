@@ -1,0 +1,872 @@
+@charset "utf-8";
+@font-face {
+  font-family: 'GangwonEduSaeeum_OTFMediumA';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEduSaeeum_OTFMediumA.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 기본 구조 */
+* {margin: 0; padding: 0;}
+li {list-style: none;}
+a {text-decoration: none; font-style: inherit; color: #000;}
+body {font-size: 12px; font-family: 'GangwonEduSaeeum_OTFMediumA', sans-serif;
+background: url(../images/Windows_bg.jpg) no-repeat center/cover fixed;
+overflow-y: hidden;
+overflow-x: hidden;
+} 
+
+/* 로고 */
+header h1 {
+  position: fixed;
+  right: 10px;
+  font-size: 30px;
+  padding: 10px;
+  color: lightblue;
+}
+
+/* 로고 소개서 */
+header p {
+  width: 50%;
+  position: fixed;
+  bottom: 70px;
+  right: 5px;
+  word-break: keep-all;
+  /* top: 835px; */
+  /* left: 1460px; */
+  font-size: 30px;
+  text-align: center;
+  color: lightblue;
+}
+
+/* 메인페이지 메뉴 */
+.menu {
+  position: relative;
+  top: 30px;
+  left: 30px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.menu .list_1,
+.list_2, 
+.list_3,
+.list_4,
+.list_5,
+.list_6 {
+  margin: 10px;
+}
+
+.menu img {
+  display: flex;
+  flex-direction: column;
+  width: 70px;
+  height: 70px;
+  margin-bottom: 20px;
+}
+
+.menu span {
+  font-size: 25px;
+  margin-bottom: 20px;
+  position: relative;
+  top: -10px;
+  left: 8px;
+  color: #fff;
+}
+.menu .sk {
+  position: relative;
+  top: -15px;
+  left: 18px;
+}
+
+
+/* 원도우 버튼 */
+.start-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #444;
+  background-color: silver;
+}
+.btn {
+  display: flex;
+  flex-direction: row;
+  float: left;
+  margin-left: 2px;
+  margin-right: 6px;
+  margin-bottom: 2px;
+  padding: 2px 6px 3px;
+  border-top: 1px solid #fff;
+  border-left: 1px solid #fff;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+.btn p {
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 1.5;
+}
+.btn:hover {background: darkgray;}
+
+/* 원도우 메뉴 */
+.window {
+  position: relative;
+  bottom: 260px;
+  width: 230px;
+  height: 200px;
+  display: none;
+  
+}
+.window li {
+  padding: 10px;
+  font-size: 40px;
+  background: silver;
+  border: 1px solid #000;
+}
+.window li:hover {background: darkgray;}
+.window li a {margin-left: 25px;}
+.window li a:hover {color: #fff;}
+.window img {
+  width: 30px;
+  height: 30px;
+  margin-right: 15px;
+}
+
+/* 원도우 날짜 */
+.date-container {
+  position: relative;
+  top: 102px;
+  left: 1750px;
+  width: 170px;
+  background-color: beige;
+  text-align: center;
+  opacity: .8;
+  border: 1px solid #ccc;
+  display: none;
+}
+
+#current-date {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+
+/* 푸터 이미지 */
+.gallery img {
+  width: 30px;
+  height: 30px;
+  margin: 5px 5px;
+  padding-top: 2px;
+}
+.gallery_1 {
+  float: right;
+  display: flex;
+  flex-direction: row;
+}
+.gallery_1 h1 {
+  margin-right: 15px;
+  line-height: 2;
+  letter-spacing: 2px;
+}
+
+
+/* part_1 : 내 정보 */
+.modal {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%); 
+  width: 80%;                   
+  max-width: 1550px;           
+  height: auto;                 
+  background-color: #fff;
+  z-index: 1000;
+  box-sizing: border-box;
+  display: none;
+}
+
+
+@media (max-width: 767px) {
+  .box1 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+}
+
+
+/* 스크롤 */
+.box0 {overflow-y: scroll; height: 600px; }
+.box0::-webkit-scrollbar {width: 8px; height: 8px;}
+.box0::-webkit-scrollbar-thumb {background-color: dodgerblue;}
+.box0::-webkit-scrollbar-track {background-color: beige;}
+
+/* header(버튼 메뉴) */
+.box {
+  display: flex;
+  justify-content: space-between;  
+  align-items: center;             
+  background-color: #fff;
+  padding: 5px;
+}
+
+.box img {
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+}
+
+.box_tit {
+  display: flex;
+}
+.box p {
+  margin-left: 10px;
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+.box_btn {
+  display: flex;
+  justify-content: flex-end;  
+  gap: 10px;                  
+}
+.box button {
+  width: 30px;
+  height: 30px;
+  margin-top: 5px;
+  border: none;
+  background: #fff;
+  cursor: pointer;
+}
+.box button:hover {background-color: darkgrey;}
+.box .btn1:hover {background-color: red; color: #fff;}
+
+
+/* 소개서 */
+.box1 {display: flex; padding: 20px; border: 1px solid #ccc; background-color: #fff;}
+.box1 img {width: 300px; height: 300px; border-radius: 15px; margin-left: 90px;}
+.box1 ul {
+  margin-top: 20px;
+  margin-left: 40px;
+  font-size: 30px;
+  font-weight: 700;
+}
+.box1 ul li {margin-bottom: 10px;}
+.box1 ul li a {color: #000;}
+.box1 ul li a:hover {color: silver;}
+
+/* 학력 */
+.box2 {border: 1px solid #ccc; background-color: #fff; padding: 20px;}
+.box2 h1 {font-size: 30px;}
+.box2 p {font-size: 30px;}
+
+/* 인사말 */
+.box3 {border: 1px solid #ccc; background-color: #fff; padding: 20px;}
+.box3 h1 {font-size: 30px;}
+.box3 p {font-size: 25px;}
+
+/* 경력 */
+.box4 {border: 1px solid #ccc; background-color: #fff; padding: 20px;}
+.box4 h1 {font-size: 30px;}
+.box4 p {font-size: 25px;}
+
+
+
+/* part_2 : 기술 */
+.modal_1 {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%); 
+  width: 80%;                   
+  max-width: 1550px;           
+  height: auto;                 
+  background-color: #fff;
+  z-index: 1000;
+  box-sizing: border-box;
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .skill p {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ccc;
+  }
+  .skill span {
+    border-top: 1px solid #ccc;
+  }
+}
+
+@media (max-width: 767px) {
+  .Lisence p {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ccc;
+  }
+  .Lisence span {
+    border-top: 1px solid #ccc;
+  }
+}
+
+/* header(버튼 메뉴) */
+.list {
+  display: flex;
+  justify-content: space-between;  
+  align-items: center;             
+  background-color: #fff;
+  padding: 5px;
+}
+
+.list img {
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+}
+
+.list_tit {
+  display: flex;
+}
+.list p {
+  margin-left: 10px;
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+.list_btn {
+  display: flex;
+  justify-content: flex-end;  
+  gap: 10px;                  
+}
+.list button {
+  width: 30px;
+  height: 30px;
+  margin-top: 5px;
+  border: none;
+  background: #fff;
+  cursor: pointer;
+}
+.list button:hover {background-color: darkgrey;}
+.list .btn1:hover {background-color: red; color: #fff;}
+
+/* 스크롤 */
+.list2 {display: flex; flex-direction: column; padding: 0 30px; border: 1px solid #ccc; background-color: #fff; overflow-y: scroll; height:600px;}
+.list2::-webkit-scrollbar {width: 8px; height: 8px;}
+.list2::-webkit-scrollbar-thumb {background-color: dodgerblue;}
+.list2::-webkit-scrollbar-track {background-color: beige;}
+
+/* 기술 내용 */
+.skill {display: flex; flex-direction: column;}
+.skill h1 {text-align: center; font-size: 50px; margin-top: 20px;}
+.skill img {width: 100px; height: 150px; padding: 10px 0; margin-right: 10px;}
+.skill p {display: flex; font-size: 22px;}
+.skill span {margin-top: 70px;}
+.skill .jq {margin-top: 40px; margin-left: 10px;}
+.skill .ps {margin-top: 40px; margin-left: 10px;}
+
+/* 자격증 */
+.Lisence {display: flex; flex-direction: column; border-top: 1px solid #ccc; margin-top: 50px;}
+.Lisence h1 {text-align: center; font-size: 50px; margin-top: 20px;}
+.Lisence img {width: 100px; height: 150px; padding: 10px 0; margin-right: 20px;}
+.Lisence p {display: flex; font-size: 22px;}
+.Lisence span {margin-top: 70px;}
+.Lisence .power {margin-top: 40px;}
+
+
+/* part_3 : 프로젝트 */
+.modal_2 {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%); 
+  width: 80%;                   
+  max-width: 1550px;           
+  height: auto;                 
+  background-color: #fff;
+  z-index: 1000;
+  box-sizing: border-box;
+  display: none;
+}
+
+
+/* 스크롤 */
+.item0 {display: flex; flex-direction: column; padding: 0 30px; border: 1px solid #ccc; background-color: #fff; overflow-x: hidden; height:600px;}
+.item0::-webkit-scrollbar {width: 8px; height: 8px;}
+.item0::-webkit-scrollbar-thumb {background-color: dodgerblue;}
+.item0::-webkit-scrollbar-track {background-color: beige;}
+
+/* header(버튼 메뉴) */
+.item {
+  display: flex;
+  justify-content: space-between;  
+  align-items: center;             
+  background-color: #fff;
+  padding: 5px;
+}
+
+.item img {
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+}
+
+.item_tit {
+  display: flex;
+}
+.item p {
+  margin-left: 10px;
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+.item_btn {
+  display: flex;
+  justify-content: flex-end;  
+  gap: 10px;                  
+}
+.item button {
+  width: 30px;
+  height: 30px;
+  margin-top: 5px;
+  border: none;
+  background: #fff;
+  cursor: pointer;
+}
+.item button:hover {background-color: darkgrey;}
+.item .btn1:hover {background-color: red; color: #fff;}
+
+/* 프로젝트's */
+.item1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; 
+  margin: 30px 0;
+  border: 1px solid #ccc;
+  padding: 20px; 
+}
+
+.item1 p {font-size: 20px; margin: 20px 20px;}
+.item1 span {color: blue;}
+
+/* .text 부모 요소 스타일링 */
+.text {
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  flex-direction: column;  
+  width: 100%;             
+}
+
+/* 이미지 */
+.text img {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 20px; 
+}
+
+/* 프로젝트 사용 된 기술 */
+.skills h2 {font-size: 25px;}
+.skills .img_a {width: 100px; height: 50px;}
+.skills .img_b {width: 50px; height: 50px;}
+
+
+
+/* part_4 : 메시지 */
+.modal_3 {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%); 
+  width: 80%;                   
+  max-width: 1550px;           
+  height: auto;                 
+  background-color: #fff;
+  z-index: 1000;
+  box-sizing: border-box;
+  display: none;
+}
+
+/* 스크롤 */
+.gb {display: flex; flex-direction: column; padding: 0 30px; border: 1px solid #ccc; background-color: #fff; overflow-x: hidden; height:600px;}
+.gb::-webkit-scrollbar {width: 8px; height: 8px;}
+.gb::-webkit-scrollbar-thumb {background-color: dodgerblue;}
+.gb::-webkit-scrollbar-track {background-color: beige;}
+
+/* header(버튼 메뉴) */
+.tit {
+  display: flex;
+  justify-content: space-between;  
+  align-items: center;             
+  background-color: #fff;
+  padding: 5px;
+}
+
+.tit img {
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+}
+
+.tit_tit {
+  display: flex;
+}
+.tit p {
+  margin-left: 10px;
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+.tit_btn {
+  display: flex;
+  justify-content: flex-end;  
+  gap: 10px;                  
+}
+.tit button {
+  width: 30px;
+  height: 30px;
+  margin-top: 5px;
+  border: none;
+  background: #fff;
+  cursor: pointer;
+}
+.tit button:hover {background-color: darkgrey;}
+.tit .btn1:hover {background-color: red; color: #fff;}
+
+/* 방명록 box */
+.guestbook_form {
+  padding: 20px;
+  background: #fff;
+}
+
+/* (input, textarea, button) box */
+.guestbook {
+  position: relative;
+  margin: 0 auto; 
+  width: 100%;
+  max-width: 800px; 
+  height: 330px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background: beige;
+}
+
+/* 제목 스타일 */
+.guestbook_form h1 {
+  text-align: center;
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+/* 폼 텍스트 스타일 */
+.guestbook_form p {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px 20px;
+}
+
+/* 입력창 스타일 */
+.guestbook_form input {
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 20px;
+  width: 100%; 
+  max-width: 200px; 
+  font-family: 'GangwonEduSaeeum_OTFMediumA';
+}
+
+/* 텍스트 영역 스타일 */
+.guestbook_form textarea {
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 20px;
+  width: 100%; 
+  max-width: 740px; 
+  height: 150px;
+  font-family: 'GangwonEduSaeeum_OTFMediumA';
+}
+
+/* 전송 버튼 스타일 */
+.guestbook_form .btn_0 {
+  float: right; 
+  margin-right: 20px;
+  width: 60px;
+  height: 40px;
+  border-radius: 5px;
+  font-size: 30px;
+  border: none;
+  cursor: pointer;
+  background: #fff;
+  color: #000;
+  font-family: 'GangwonEduSaeeum_OTFMediumA';
+}
+
+/* 버튼 hover 효과 */
+.guestbook_form button:hover {
+  background: burlywood;
+  color: #fff;
+}
+
+/* 게시판 제목 */
+.message_board {
+  border-top: 1px solid silver;
+  margin-top: 50px;
+}
+
+/* 게시판 제목 스타일 */
+.message_board h2 {
+  font-size: 50px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* 게시판 (댓글 목록) */
+#messages_list {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 800px; 
+  padding-left: 0;
+  list-style: none;
+}
+
+#messages_list li {
+  margin: 20px 0;
+  padding: 10px;
+  background: beige;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#messages_list button {
+  float: right;
+  position: relative;
+  left: auto;
+  bottom: 30px;
+  margin-left: 10px;
+  width: 40px;
+  height: 30px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #000;
+}
+
+/* 버튼 hover 효과 */
+#messages_list button:hover {
+  background: burlywood;
+  color: #fff;
+}
+
+/* 댓글 내용 영역 */
+#messages_list li .text {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 2px solid #fff;
+}
+
+#messages_list li strong {
+  font-size: 25px;
+  margin: 5px 5px;
+}
+
+#messages_list li p {
+  margin: 5px 10px;
+}
+
+#messages_list li .msg {
+  padding: 10px;
+  width: 100%; 
+  position: relative;
+  right: 10px;
+  overflow-x: hidden;
+  height: 50px;
+}
+
+/* 반응형 스타일 (모바일 화면 대응) */
+@media (max-width: 767px) {
+  /* 방명록 폼 */
+  .guestbook {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .guestbook_form input, .guestbook_form textarea {
+    width: 100%; 
+  }
+
+  /* 게시판 리스트 */
+  #messages_list {
+    width: 100%; 
+    padding-left: 0;
+  }
+
+  #messages_list li {
+    width: 100%; 
+  }
+
+  /* 버튼 위치 조정 */
+  #messages_list button {
+    width: 40px;
+    height: 30px;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .guestbook_form h1 {
+    font-size: 35px;
+  }
+
+  .message_board h2 {
+    font-size: 35px;
+  }
+}
+
+
+/* 휴지통 */
+.modal_4 {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%); 
+  width: 80%;                   
+  max-width: 1550px;           
+  height: auto;                 
+  background-color: #fff;
+  z-index: 1000;
+  box-sizing: border-box;
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .TH {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    margin-top: 20px;
+  }
+
+  .trash {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    width: 100%;
+  }
+
+  .trash_file {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 0;
+    width: 80%;
+  }
+
+  .trash_1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    width: 100%;
+  }
+
+  .trash_memo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 0;
+    width: 80%;
+  }
+
+  /* 이미지 크기 조정 */
+  .trash_file img, .trash_memo img {
+    width: 30%; 
+
+  }
+
+  /* 텍스트 크기 조정 */
+  .trash_file p, .trash_memo p {
+    font-size: 14px; 
+    text-align: center; 
+  }
+}
+
+
+
+/* 스크롤 */
+.TH {display: flex; flex-direction: column; padding: 0 30px; border: 1px solid #ccc; background-color: #fff; overflow-x: hidden; height:400px;}
+.TH::-webkit-scrollbar {width: 8px; height: 8px;}
+.TH::-webkit-scrollbar-thumb {background-color: dodgerblue;}
+.TH::-webkit-scrollbar-track {background-color: beige;}
+
+/* header(버튼 메뉴) */
+.btn_menu {
+  display: flex;
+  justify-content: space-between;  
+  align-items: center;             
+  background-color: #fff;
+  padding: 5px;
+}
+
+.btn_menu img {
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+}
+
+.btn_menu_tit {
+  display: flex;
+}
+.btn_menu p {
+  margin-left: 10px;
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+.btn_menu_btn {
+  display: flex;
+  justify-content: flex-end;  
+  gap: 10px;                  
+}
+.btn_menu button {
+  width: 30px;
+  height: 30px;
+  margin-top: 5px;
+  border: none;
+  background: #fff;
+  cursor: pointer;
+}
+.btn_menu button:hover {background-color: darkgrey;}
+.btn_menu .btn1:hover {background-color: red; color: #fff;}
+
+/* 휴지통 폴더 배경 */
+.trash {
+  display: flex;
+  justify-content: space-around;
+  background-color: #fff; 
+  padding: 20px;
+}
+
+/* 폴더 */
+.trash_file:hover {border: 1px dotted blue;}
+.trash_file p {font-size: 20px; text-align: center; margin-top: 10px;}
+.trash_file_a img {position: relative; left: 15px;}
+
+/* 메모장 */
+.trash_1 {
+  display: flex;
+  justify-content: space-around;
+  background-color: #fff; 
+  padding: 20px;
+}
+.trash_memo:hover {border: 1px dotted blue;} 
+.trash_memo p {font-size: 20px; text-align: center; margin-top: 10px;}
