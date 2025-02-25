@@ -6,17 +6,10 @@
   <title>RECYCLE BIN</title>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <style>
-    @font-face {
-      font-family: 'GangwonEduSaeeum_OTFMediumA';
-      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEduSaeeum_OTFMediumA.woff') format('woff');
-      font-weight: normal;
-      font-style: normal;
-    }
-
   * {margin: 0; padding: 0;}
   li {list-style: none;}
   a {text-decoration: none;}
-  body {font-family: 'GangwonEduSaeeum_OTFMediumA';}
+  body {font-family: "Segoe UI", Arial, sans-serif;}
 
   .modal_4 {
   width: 1890px;
@@ -29,13 +22,12 @@
 
 .menu {display: flex; width: 1890px; height: 40px; background-color: lightblue;}
 .menu img {margin-left: 5px; margin-top: 5px; width: 30px; height: 30px;}
-.menu p {margin-left: 10px; margin-top: 15px; font-size: 20px; color: #fff; line-height: .5;}
+.menu p {margin-left: 10px; margin-top: 15px; font-size: 16px; line-height: .5;}
 .menu button {
   position: relative;
-  left: 1645px;
+  left: 1635px;
   width: 30px;
   height: 30px;
-  margin-top: 5px;
   border: none;
   margin: 5px;
   background: lightblue;
@@ -52,11 +44,15 @@
   border-bottom: none;
 }
 .trash_file:hover {border: 1px dotted blue;}
-.trash_file p {font-size: 20px; text-align: center; margin-top: 10px;}
-.trash_file_a img {position: relative; left: 15px;}
+.trash_file p {font-size: 14px; text-align: center; margin-top: 10px;}
+.trash_file img {margin-left: 15px;}
+.trash_file_a img {margin-left: 25px;}
+.trash_file_b img {margin-left: 5px;}
 
 .trash_file_a:hover {border: 1px dotted blue;}
-.trash_file_a p {font-size: 20px; text-align: center; margin-top: 10px;}
+.trash_file_b:hover {border: 1px dotted blue;}
+.trash_file_a p {font-size: 14px; text-align: center; margin-top: 10px;}
+.trash_file_b p {font-size: 14px; text-align: center; margin-top: 10px;}
 
 .trash_1 {
   display: flex;
@@ -67,7 +63,7 @@
   border-top: none;
 }
 .trash_memo:hover {border: 1px dotted blue;} 
-.trash_memo p {font-size: 20px; text-align: center; margin-top: 10px;}
+.trash_memo p {font-size: 14px; text-align: center; margin-top: 10px;}
   </style>
 </head>
 <body>
@@ -88,7 +84,7 @@
         <img src="./images/File_img.png" alt="">
         <p>감정 표현 부족</p>
       </div>
-      <div class="trash_file">
+      <div class="trash_file_b">
         <img src="./images/File_img.png" alt="">
         <p>우유부단함</p>
       </div>
@@ -104,7 +100,7 @@
         <img src="./images/File_img.png" alt="">
         <p>새로운 도전 두려움</p>
       </div>
-      <div class="trash_file">
+      <div class="trash_file_b">
         <img src="./images/File_img.png" alt="">
         <p>비판의 민감</p>
       </div>

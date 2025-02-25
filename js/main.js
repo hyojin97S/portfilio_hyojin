@@ -42,9 +42,13 @@ function displayCurrentDate() {
 
 window.onload = displayCurrentDate;
 
+
+// 시계 호버시 보이게 하기
 $(function() {
-  $("#clock").on("click", function() {
-    $(".date-container").toggle();
+  $("#clock").hover(function() {
+    $(".date-container").fadeIn(1000);
+  }, function() {
+    $(".date-container").fadeOut(300); 
   });
 });
 
@@ -57,6 +61,7 @@ $(function(){
 });
 
 
+
 // 내 정보
 $('.list_1 img').click(function(){
 	$('.list_1').css("width", "70px");
@@ -66,35 +71,57 @@ $('.list_1 img').click(function(){
 
 // 아이콘 border
 $(function(){
-  $(".box0, .btn1").on("click",function(){
+  $(".btn1").on("click",function(){
   $(".list_1").css("border", "none");
   })
 });
 
 $(function(){
-  $(".about").on("dblclick",function(){
+  $(".list_1").on("dblclick",function(){
   $(".modal").show();
   })
-  $(".box0").on("click",function(){
+  $(".btn1").on("click",function(){
       $(".modal").hide();
     })
 });
 
-$(function(){
-  $(".box").on("dblclick",function(){
-    window.location.href = 'aboutMe.html';
-  })
+// 작은 창 닫기
+  $(document).ready(function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('modal') === 'true') {
+      $('.modal').fadeIn(); 
+    }
+
+    $('.btn1').on('click', function() {
+      var newUrl = window.location.href.split('?')[0]; 
+      window.history.replaceState({}, document.title, newUrl); 
+      $('.modal').fadeOut(); 
+    });
+  });
+
+// 반응형 내 정보
+const modal = document.querySelector(".modal");
+const aboutMeLink = document.querySelector("li a[href='./aboutMe.html']");
+const closeBtn = document.querySelector(".btn1");
+const windowMenu = document.querySelector(".window");
+
+// "내 정보" 클릭 시 모달 보이고 원도우 메뉴 숨기기
+aboutMeLink.addEventListener("click", function(event) {
+  event.preventDefault();
+  modal.style.display = "block";
+  windowMenu.style.display = "none";
 });
 
-$(document).ready(function() {
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('modal') === 'true') {
-      $('.modal').fadeIn(); 
-  }
-  $('.btn1').on('click', function() {
-      $('.modal').fadeOut(); 
-  });
+// "엑스" 버튼 클릭 시 모달 닫기
+closeBtn.addEventListener("click", function() {
+  modal.style.display = "none"; 
 });
+
+// 반응형 상태에서만 "내 정보" 클릭 가능하게
+window.addEventListener("resize", () => {
+  aboutMeLink.style.pointerEvents = window.innerWidth <= 768 ? "auto" : "none";
+});
+
 
 
 // 기술
@@ -103,36 +130,59 @@ $('.list_2 img').click(function(){
 	$('.list_2').css("border", "1px dotted lightblue");
 });
 
+// 아이콘 border
 $(function(){
-  $(".list2, .btn1").on("click",function(){
+  $(".btn1").on("click",function(){
   $(".list_2").css("border", "none");
   })
 });
 
 $(function(){
-  $(".skil").on("dblclick",function(){
+  $(".list_2").on("dblclick",function(){
   $(".modal_1").show();
   })
-  $(".list2").on("click",function(){
+  $(".btn1").on("click",function(){
       $(".modal_1").hide();
     })
 });
 
-$(function(){
-  $(".list").on("dblclick",function(){
-    window.location.href = 'SKILLS.html';
-  })
-});
-
+// 작은 창 닫기
 $(document).ready(function() {
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('modal_1') === 'true') {
-      $('.modal_1').fadeIn(); 
+    $('.modal_1').fadeIn(); 
   }
+
   $('.btn1').on('click', function() {
-      $('.modal_1').fadeOut(); 
+    var newUrl = window.location.href.split('?')[0]; 
+    window.history.replaceState({}, document.title, newUrl); 
+    $('.modal_1').fadeOut(); 
   });
 });
+
+// 반응형 윈도우 메뉴 "기술"
+const modal1 = document.querySelector(".modal_1");  
+const skillsLink = document.querySelector("li a[href='./SKILLS.html']");  
+const closeBtn1 = document.querySelector(".modal_1 .btn1");  
+const windowMenu1 = document.querySelector(".window"); 
+
+// "기술" 클릭 시 modal_1 보이고 원도우 메뉴 숨기기
+skillsLink.addEventListener("click", function(event) {
+  event.preventDefault();
+  modal1.style.display = "block";  
+  windowMenu1.style.display = "none";  
+});
+
+// "엑스" 버튼 클릭 시 modal_1 닫기
+closeBtn1.addEventListener("click", function() {
+  modal1.style.display = "none"; 
+});
+
+// 반응형 상태에서만 "기술" 클릭 가능하게
+window.addEventListener("resize", () => {
+  skillsLink.style.pointerEvents = window.innerWidth <= 768 ? "auto" : "none";
+});
+
 
 
 // 프로젝트
@@ -142,35 +192,58 @@ $('.list_3 img').click(function(){
 });
 
 $(function(){
-  $(".item0 , .btn1").on("click",function(){
+  $(".btn1").on("click",function(){
   $(".list_3").css("border", "none");
   })
 });
 
 $(function(){
-  $(".proj").on("dblclick",function(){
+  $(".list_3").on("dblclick",function(){
   $(".modal_2").show();
   })
-  $(".item0").on("click",function(){
+  $(".btn1").on("click",function(){
       $(".modal_2").hide();
     })
 });
 
-$(function(){
-  $(".item").on("dblclick",function(){
-    window.location.href = 'PROJECT.html';
-  })
-});
-
+// 작은 창 닫기
 $(document).ready(function() {
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('modal_2') === 'true') {
-      $('.modal_2').fadeIn(); 
+    $('.modal_2').fadeIn(); 
   }
+
   $('.btn1').on('click', function() {
-      $('.modal_2').fadeOut(); 
+    var newUrl = window.location.href.split('?')[0]; 
+    window.history.replaceState({}, document.title, newUrl); 
+    $('.modal_2').fadeOut(); 
   });
 });
+
+
+// 반응형 윈도우 메뉴 "프로젝트"
+const modal2 = document.querySelector(".modal_2");  
+const projectsLink = document.querySelector("li a[href='./project.html']");  
+const closeBtn2 = document.querySelector(".modal_2 .btn1");  
+const windowMenu2 = document.querySelector(".window");  
+
+// "프로젝트" 클릭 시 modal_2 보이고 원도우 메뉴 숨기기
+projectsLink.addEventListener("click", function(event) {
+  event.preventDefault();
+  modal2.style.display = "block";  
+  windowMenu2.style.display = "none";  
+});
+
+// "엑스" 버튼 클릭 시 modal_2 닫기
+closeBtn2.addEventListener("click", function() {
+  modal2.style.display = "none";  
+});
+
+// 반응형 상태에서만 "프로젝트" 클릭 가능하게
+window.addEventListener("resize", () => {
+  projectsLink.style.pointerEvents = window.innerWidth <= 768 ? "auto" : "none";
+});
+
 
 
 // 메시지
@@ -180,16 +253,16 @@ $('.list_4 img').click(function(){
 });
 
 $(function(){
-  $(".gb, .btn1").on("click",function(){
+  $(".btn1").on("click",function(){
   $(".list_4").css("border", "none");
   })
 });
 
 $(function(){
-  $(".msgs").on("dblclick",function(){
+  $(".list_4").on("dblclick",function(){
   $(".modal_3").show();
   })
-  $(".gb").on("click",function(){
+  $(".btn1").on("click",function(){
       $(".modal_3").hide();
     })
 });
@@ -198,22 +271,46 @@ $(".guestbook, #messages_list").on("click", function(event){
   event.stopPropagation();
 });
 
-$(function(){
-  $(".tit").on("dblclick",function(){
-    window.location.href = 'CONTACT.html';
-  })
-});
-
+// 작은 창 닫기
 $(document).ready(function() {
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('modal_3') === 'true') {
-      $('.modal_3').fadeIn(); 
+    $('.modal_3').fadeIn(); 
   }
+
   $('.btn1').on('click', function() {
-      $('.modal_3').fadeOut(); 
+    var newUrl = window.location.href.split('?')[0]; 
+    window.history.replaceState({}, document.title, newUrl); 
+    $('.modal_3').fadeOut(); 
   });
 });
 
+
+// 반응형 윈도우 메뉴 "메시지"
+const modal3 = document.querySelector(".modal_3");  
+const contactLink = document.querySelector("li a[href='./contact.html']");
+const closeBtn3 = document.querySelector(".modal_3 .btn1");  
+const windowMenu3 = document.querySelector(".window"); 
+
+// "메시지" 클릭 시 modal_3 보이고 원도우 메뉴 숨기기
+contactLink.addEventListener("click", function(event) {
+  event.preventDefault();
+  modal3.style.display = "block";  
+  windowMenu3.style.display = "none";  
+});
+
+// "엑스" 버튼 클릭 시 modal_3 닫기
+closeBtn3.addEventListener("click", function() {
+  modal3.style.display = "none";  
+});
+
+// 반응형 상태에서만 "메시지" 클릭 가능하게
+window.addEventListener("resize", () => {
+  contactLink.style.pointerEvents = window.innerWidth <= 768 ? "auto" : "none";
+});
+
+
+// 방명록
 document.addEventListener("DOMContentLoaded", function () {
   displayMessages();
 
@@ -289,6 +386,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+
 // 인터넷 github
 $('.list_5 img').click(function(){
   $('.list_5').css("width", "70px");
@@ -307,32 +405,54 @@ $('.list_6 img').click(function(){
 });
 
 $(function(){
-  $(".TH, .btn1").on("click",function(){
+  $(".btn1").on("click",function(){
   $(".list_6").css("border", "none");
   })
 });
 
 $(function(){
-  $(".recy").on("dblclick",function(){
+  $(".list_6").on("dblclick",function(){
   $(".modal_4").show();
   })
-  $(".TH").on("click",function(){
+  $(".btn1").on("click",function(){
       $(".modal_4").hide();
     })
 });
 
-$(function(){
-  $(".btn_menu").on("dblclick",function(){
-    window.location.href = 'recycleBin.html';
-  })
-});
-
+// 작은 창 닫기
 $(document).ready(function() {
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('modal_4') === 'true') {
-      $('.modal_4').fadeIn(); 
+    $('.modal_4').fadeIn(); 
   }
+
   $('.btn1').on('click', function() {
-      $('.modal_4').fadeOut(); 
+    var newUrl = window.location.href.split('?')[0]; 
+    window.history.replaceState({}, document.title, newUrl); 
+    $('.modal_4').fadeOut(); 
   });
 });
+
+// 반응형 윈도우 메뉴 "휴지통"
+const modal4 = document.querySelector(".modal_4");  
+const recycleBinLink = document.querySelector("li a[href='./recycleBin.html']");
+const closeBtn4 = document.querySelector(".modal_4 .btn1"); 
+const windowMenu4 = document.querySelector(".window");  
+
+// "휴지통" 클릭 시 modal_4 보이고 원도우 메뉴 숨기기
+recycleBinLink.addEventListener("click", function(event) {
+  event.preventDefault();
+  modal4.style.display = "block";  
+  windowMenu4.style.display = "none"; 
+});
+
+// "엑스" 버튼 클릭 시 modal_4 닫기
+closeBtn4.addEventListener("click", function() {
+  modal4.style.display = "none";
+});
+
+// 반응형 상태에서만 "휴지통" 클릭 가능하게
+window.addEventListener("resize", () => {
+  recycleBinLink.style.pointerEvents = window.innerWidth <= 768 ? "auto" : "none";
+});
+
