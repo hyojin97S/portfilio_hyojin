@@ -553,6 +553,15 @@ header p {
   padding: 5px;
 }
 
+.site {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.site a:hover {
+  color: red;
+}
+
 .item img {
   width: 30px;
   height: 30px;
