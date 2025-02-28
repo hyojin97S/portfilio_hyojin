@@ -128,7 +128,7 @@ header p {
 /* 원도우 메뉴 */
 .window {
   position: fixed;
-  bottom: 46px;
+  bottom: 44px;
   width: 200px;
   display: none;
 }
@@ -169,6 +169,7 @@ header p {
     bottom: 47px; 
     right: 0; 
   }
+  .gallery img {display: none;}
 }
 
 
@@ -212,7 +213,6 @@ header p {
 
 /* 소개서 반응형 */
 @media (max-width: 767px) {
-
   .box1 {
     display: flex;
     flex-direction: column;
