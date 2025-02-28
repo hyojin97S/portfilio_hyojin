@@ -630,7 +630,7 @@ header p {
   height: auto;
   object-fit: cover;
   margin-bottom: 20px;
-  border: 1px solid beige;
+  border: 2px solid beige;
 }
 
 /* 프로젝트 사용 된 기술 */
