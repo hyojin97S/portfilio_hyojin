@@ -309,6 +309,7 @@ window.addEventListener("resize", () => {
   contactLink.style.pointerEvents = window.innerWidth <= 768 ? "auto" : "none";
 });
 
+
 // 방명록
 document.addEventListener("DOMContentLoaded", function () {
   displayMessages();

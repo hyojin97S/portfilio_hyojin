@@ -8,14 +8,14 @@ let editMessageId = null;
 document.addEventListener("DOMContentLoaded", function () {
   displayMessages();
 
-  document.getElementById('guestbook').addEventListener('submit', function(event) {
+  document.getElementById('guestbook').addEventListener('submit', function (event) {
     event.preventDefault();
-    
+
     const name = document.getElementById('name').value;
     const message = document.getElementById('message').value;
-  
-    console.log(name, message);  // 콘솔에 값이 제대로 입력되었는지 확인
-  
+
+    console.log("Name:", name, "Message:", message);  // 디버깅용
+
     if (name && message) {
       const messageObj = {
         name,
@@ -23,9 +23,8 @@ document.addEventListener("DOMContentLoaded", function () {
         date: new Date().toLocaleString(),
         id: editMessageId || Date.now()  // 수정 모드에서는 기존 ID 사용
       };
-  
-      // Firebase에 메시지 저장
-      saveMessageToFirebase(messageObj);
+
+      saveMessageToFirebase(messageObj);  // Firebase에 메시지 저장
       resetForm();
     } else {
       alert("이름과 메시지를 모두 입력해주세요.");
@@ -34,8 +33,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Firebase에 메시지 저장하는 함수
   function saveMessageToFirebase(messageObj) {
-    const newMessageRef = ref(db, 'messages/' + messageObj.id);
-    set(newMessageRef, messageObj)  // Firebase에 메시지를 저장
+    const messageRef = ref(db, 'messages/' + messageObj.id);
+    set(messageRef, messageObj)
       .then(() => {
         console.log('Message saved successfully');
         displayMessages();  // 저장 후 메시지 목록 갱신
