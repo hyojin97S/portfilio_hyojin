@@ -42,7 +42,8 @@ function displayMessages() {
   onValue(messagesRef, (snapshot) => {
     const messages = snapshot.val();
     if (messages) {
-      Object.values(messages).forEach(msg => {
+      Object.keys(messages).forEach(key => {
+        const msg = messages[key];
         const messageItem = document.createElement('li');
         messageItem.innerHTML = `
           <div class="text">
@@ -50,8 +51,8 @@ function displayMessages() {
             <p>${msg.date}</p> 
           </div>
           <p class="msg">${msg.message}</p>
-          <button class="edit" onclick="editMessage(${msg.id})">수정</button>
-          <button class="delete" onclick="deleteMessage(${msg.id})">삭제</button>
+          <button class="edit" onclick="editMessage('${key}')">수정</button>
+          <button class="delete" onclick="deleteMessage('${key}')">삭제</button>
         `;
         messagesList.appendChild(messageItem);
       });
@@ -60,8 +61,8 @@ function displayMessages() {
 }
 
 // 수정 버튼 클릭 시 처리
-window.editMessage = function(id) {
-  const messagesRef = ref(db, 'messages/' + id);
+window.editMessage = function(key) {
+  const messagesRef = ref(db, 'messages/' + key);
   onValue(messagesRef, (snapshot) => {
     const message = snapshot.val();
     if (message) {
@@ -70,16 +71,22 @@ window.editMessage = function(id) {
 
       // 수정 모드 활성화
       editMode = true;
-      editMessageId = id;
+      editMessageId = key;
     }
   });
 };
 
 // 삭제 버튼 클릭 시 처리
-window.deleteMessage = function(id) {
-  const messageRef = ref(db, 'messages/' + id);
-  set(messageRef, null);  // Firebase에서 해당 메시지 삭제
-  displayMessages();  // 메시지 목록 갱신
+window.deleteMessage = function(key) {
+  const messageRef = ref(db, 'messages/' + key);
+  set(messageRef, null)  // Firebase에서 해당 메시지 삭제
+    .then(() => {
+      console.log('Message deleted successfully');
+      displayMessages();  // 메시지 목록 갱신
+    })
+    .catch((error) => {
+      console.error('Error deleting message:', error);
+    });
 };
 
 // 페이지가 로드되면 Firebase에서 메시지 표시
