@@ -309,7 +309,6 @@ window.addEventListener("resize", () => {
   contactLink.style.pointerEvents = window.innerWidth <= 768 ? "auto" : "none";
 });
 
-
 // 방명록
 document.addEventListener("DOMContentLoaded", function () {
   displayMessages();
@@ -384,8 +383,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('message').value = '';
   }
 });
-
-
 
 // 인터넷 github
 $('.list_5 img').click(function(){
