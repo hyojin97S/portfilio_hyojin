@@ -310,30 +310,13 @@ window.addEventListener("resize", () => {
 });
 
 
- // Firebase 설정
- const firebaseConfig = {
-  apiKey: "AIzaSyBnKx1X-Zv1ia-inRCOhvt3gL7711v7IeM",
-  authDomain: "projects-6403f.firebaseapp.com",
-  databaseURL: "https://projects-6403f-default-rtdb.firebaseio.com",
-  projectId: "projects-6403f",
-  storageBucket: "projects-6403f.firebasestorage.app",
-  messagingSenderId: "575341885808",
-  appId: "1:575341885808:web:b337965ee84f3f356c37b5",
-  measurementId: "G-58FK4ZB2CZ"
-};
-
-// Firebase 앱 초기화
-const app = firebase.initializeApp(firebaseConfig);
-const database = firebase.database(app);
-
-// 메시지 저장하기
+// 방명록
 document.addEventListener("DOMContentLoaded", function () {
   displayMessages();
 
-  // 폼 제출 시
   document.getElementById('guestbook').addEventListener('submit', function (event) {
     event.preventDefault();
-
+    
     const name = document.getElementById('name').value;
     const message = document.getElementById('message').value;
 
@@ -345,11 +328,6 @@ document.addEventListener("DOMContentLoaded", function () {
         id: Date.now()
       };
 
-      // Firebase에 메시지 저장
-      const messagesRef = database.ref('messages');
-      messagesRef.push(messageObj);
-
-      // 로컬 저장소에 메시지 저장
       const messages = getMessages();
       messages.push(messageObj);
       saveMessages(messages);
@@ -360,35 +338,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Firebase에서 메시지 읽어오기
   function displayMessages() {
     const messagesList = document.getElementById('messages_list');
     messagesList.innerHTML = '';
 
-    // Firebase에서 실시간 메시지 불러오기
-    const messagesRef = database.ref('messages');
-    messagesRef.on('child_added', function(snapshot) {
-      const msg = snapshot.val();
-      const messageItem = document.createElement('li');
-      messageItem.innerHTML = `
-        <div class="text">
-          <strong>${msg.name}</strong>
-          <p>${msg.date}</p>
-        </div>
-        <p class="msg">${msg.message}</p>
-        <button class="delete" onclick="deleteMessage('${snapshot.key}')">삭제</button>
-        <button class="edit" onclick="editMessage('${snapshot.key}')">수정</button>
-      `;
-      messagesList.appendChild(messageItem);
-    });
-
-    // 로컬 저장소에서 기존 메시지 불러오기
     getMessages().forEach(msg => {
       const messageItem = document.createElement('li');
       messageItem.innerHTML = `
         <div class="text">
-          <strong>${msg.name}</strong>
-          <p>${msg.date}</p>
+        <strong>${msg.name}</strong>                
+        <p>${msg.date})</p> 
         </div>
         <p class="msg">${msg.message}</p>
         <button class="delete" onclick="deleteMessage(${msg.id})">삭제</button>
@@ -407,13 +366,9 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   window.deleteMessage = function(id) {
-    const messagesRef = database.ref('messages/' + id);
-    messagesRef.remove();  // Firebase에서 메시지 삭제
-
-    // 로컬 저장소에서 삭제
     const messages = getMessages().filter(msg => msg.id !== id);
     saveMessages(messages);
-    displayMessages();  // 메시지 목록 갱신
+    displayMessages();
   };
 
   function getMessages() {
