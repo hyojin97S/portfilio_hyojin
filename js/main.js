@@ -286,37 +286,29 @@ $(document).ready(function() {
 });
 
 
-// 반응형 윈도우 메뉴 "메시지"
-const modal3 = document.querySelector(".modal_3");  
-const contactLink = document.querySelector("li a[href='./contact.html']");
-const closeBtn3 = document.querySelector(".modal_3 .btn1");  
-const windowMenu3 = document.querySelector(".window"); 
 
-// "메시지" 클릭 시 modal_3 보이고 원도우 메뉴 숨기기
-contactLink.addEventListener("click", function(event) {
-  event.preventDefault();
-  modal3.style.display = "block";  
-  windowMenu3.style.display = "none";  
-});
+// Firebase 초기화
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
 
-// "엑스" 버튼 클릭 시 modal_3 닫기
-closeBtn3.addEventListener("click", function() {
-  modal3.style.display = "none";  
-});
+const app = firebase.initializeApp(firebaseConfig);
+const database = firebase.database(app);
 
-// 반응형 상태에서만 "메시지" 클릭 가능하게
-window.addEventListener("resize", () => {
-  contactLink.style.pointerEvents = window.innerWidth <= 768 ? "auto" : "none";
-});
-
-
-// 방명록
+// 기존 로컬 저장소와 Firebase 데이터 결합
 document.addEventListener("DOMContentLoaded", function () {
-  displayMessages();
+  displayMessages();  // Firebase 또는 localStorage에 저장된 메시지 표시
 
+  // 방명록 폼 제출 이벤트
   document.getElementById('guestbook').addEventListener('submit', function (event) {
     event.preventDefault();
-    
+
     const name = document.getElementById('name').value;
     const message = document.getElementById('message').value;
 
@@ -328,26 +320,50 @@ document.addEventListener("DOMContentLoaded", function () {
         id: Date.now()
       };
 
+      // Firebase에 메시지 추가
+      const messagesRef = database.ref('messages');
+      messagesRef.push(messageObj);  // Firebase에 메시지 추가
+
+      // LocalStorage에 저장
       const messages = getMessages();
       messages.push(messageObj);
-      saveMessages(messages);
-      displayMessages();
+      saveMessages(messages);  // 로컬 저장소에 메시지 저장
+
       resetForm();
     } else {
       alert("이름과 메시지를 모두 입력해주세요.");
     }
   });
 
+  // Firebase에서 메시지 불러오기
   function displayMessages() {
     const messagesList = document.getElementById('messages_list');
     messagesList.innerHTML = '';
 
+    // Firebase에서 메시지를 읽어오기
+    const messagesRef = database.ref('messages');
+    messagesRef.on('child_added', function(snapshot) {
+      const msg = snapshot.val();
+      const messageItem = document.createElement('li');
+      messageItem.innerHTML = `
+        <div class="text">
+          <strong>${msg.name}</strong>
+          <p>${msg.date}</p>
+        </div>
+        <p class="msg">${msg.message}</p>
+        <button class="delete" onclick="deleteMessage('${snapshot.key}')">삭제</button>
+        <button class="edit" onclick="editMessage('${snapshot.key}')">수정</button>
+      `;
+      messagesList.appendChild(messageItem);
+    });
+
+    // 로컬 저장소에 있는 메시지 불러오기
     getMessages().forEach(msg => {
       const messageItem = document.createElement('li');
       messageItem.innerHTML = `
         <div class="text">
-        <strong>${msg.name}</strong>                
-        <p>${msg.date})</p> 
+          <strong>${msg.name}</strong>
+          <p>${msg.date}</p>
         </div>
         <p class="msg">${msg.message}</p>
         <button class="delete" onclick="deleteMessage(${msg.id})">삭제</button>
@@ -366,15 +382,22 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   window.deleteMessage = function(id) {
+    const messagesRef = database.ref('messages/' + id);
+    messagesRef.remove();  // Firebase에서 삭제
+
+    // 로컬 저장소에서 삭제
     const messages = getMessages().filter(msg => msg.id !== id);
     saveMessages(messages);
-    displayMessages();
+
+    displayMessages();  // 업데이트된 메시지 목록 다시 표시
   };
 
+  // 로컬 저장소에서 메시지 가져오기
   function getMessages() {
     return JSON.parse(localStorage.getItem('messages')) || [];
   }
 
+  // 로컬 저장소에 메시지 저장하기
   function saveMessages(messages) {
     localStorage.setItem('messages', JSON.stringify(messages));
   }
@@ -384,6 +407,8 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('message').value = '';
   }
 });
+
+
 
 
 
