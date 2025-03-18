@@ -385,6 +385,69 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+// Firebase 구성 정보 (Firebase 콘솔에서 가져온 값을 입력)
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+// Firebase 초기화
+const app = firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore(app);
+
+document.getElementById('guestbook').addEventListener('submit', async function (event) {
+  event.preventDefault();
+
+  const name = document.getElementById('name').value;
+  const message = document.getElementById('message').value;
+  const date = new Date().toLocaleString();
+
+  if (name && message) {
+    // Firestore에 메시지 저장
+    await db.collection('messages').add({
+      name: name,
+      message: message,
+      date: date
+    });
+
+    displayMessages(); // 메시지 리스트 다시 표시
+    resetForm(); // 폼 초기화
+  } else {
+    alert("이름과 메시지를 모두 입력해주세요.");
+  }
+});
+
+async function displayMessages() {
+  const messagesList = document.getElementById('messages_list');
+  messagesList.innerHTML = '';
+
+  // Firestore에서 메시지 가져오기
+  const snapshot = await db.collection('messages').orderBy('date').get();
+
+  snapshot.forEach(doc => {
+    const msg = doc.data();
+    const messageItem = document.createElement('li');
+    messageItem.innerHTML = `
+      <div class="text">
+        <strong>${msg.name}</strong>
+        <p>${msg.date}</p>
+      </div>
+      <p class="msg">${msg.message}</p>
+    `;
+    messagesList.appendChild(messageItem);
+  });
+}
+
+// 실시간 업데이트
+db.collection('messages').orderBy('date').onSnapshot(snapshot => {
+  displayMessages(); // 데이터 변경 시 자동으로 갱신
+});
+
+
 
 
 // 인터넷 github
