@@ -1,4 +1,4 @@
-import { db, ref, set, onValue } from './firebase.js';
+import { db, ref, set, onValue, remove } from './firebase.js';
 
 // 수정 모드 변수
 let editMode = false;
@@ -6,7 +6,7 @@ let editMessageId = null;
 
 // 메시지 전송 폼 이벤트 리스너
 document.addEventListener("DOMContentLoaded", function () {
-  displayMessages();
+  displayMessages();  // 페이지가 로드될 때 메시지 불러오기
 
   document.getElementById('guestbook').addEventListener('submit', function (event) {
     event.preventDefault();
@@ -14,27 +14,26 @@ document.addEventListener("DOMContentLoaded", function () {
     const name = document.getElementById('name').value;
     const message = document.getElementById('message').value;
 
-    console.log("Name:", name, "Message:", message);  // 디버깅용
-
-    if (name && message) {
+    if (name.trim() && message.trim()) {
       const messageObj = {
         name,
         message,
         date: new Date().toLocaleString(),
-        id: editMessageId || Date.now()  // 수정 모드에서는 기존 ID 사용
+        id: editMessageId || Date.now()  // 수정 시 기존 id 사용, 새 메시지는 새 id
       };
 
-      saveMessageToFirebase(messageObj);  // Firebase에 메시지 저장
+      // Firebase에 메시지 저장
+      saveMessageToFirebase(messageObj);
       resetForm();
     } else {
-      alert("이름과 메시지를 모두 입력해주세요.");
+      alert("이름과 메시지를 모두 입력해주세요.");  // 이름과 메시지를 입력하지 않으면 경고
     }
   });
 
   // Firebase에 메시지 저장하는 함수
   function saveMessageToFirebase(messageObj) {
-    const messageRef = ref(db, 'messages/' + messageObj.id);
-    set(messageRef, messageObj)
+    const newMessageRef = ref(db, 'messages/' + messageObj.id);
+    set(newMessageRef, messageObj)  // Firebase에 메시지를 저장
       .then(() => {
         console.log('Message saved successfully');
         displayMessages();  // 저장 후 메시지 목록 갱신
@@ -44,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 
-  // 메시지를 Firebase에서 가져오는 함수
+  // Firebase에서 메시지 가져오는 함수
   function displayMessages() {
     const messagesList = document.getElementById('messages_list');
     messagesList.innerHTML = '';  // 리스트 초기화
@@ -90,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // 삭제 버튼 클릭 시 처리
   window.deleteMessage = function(key) {
     const messageRef = ref(db, 'messages/' + key);
-    set(messageRef, null)  // Firebase에서 해당 메시지 삭제
+    remove(messageRef)  // Firebase에서 해당 메시지만 삭제
       .then(() => {
         console.log('Message deleted successfully');
         displayMessages();  // 메시지 목록 갱신
