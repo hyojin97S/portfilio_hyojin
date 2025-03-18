@@ -384,6 +384,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+
+
 // 인터넷 github
 $('.list_5 img').click(function(){
   $('.list_5').css("width", "70px");
