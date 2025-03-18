@@ -51,8 +51,8 @@ function displayMessages() {
             <p>${msg.date}</p> 
           </div>
           <p class="msg">${msg.message}</p>
-          <button class="edit" onclick="editMessage('${key}')">수정</button>
           <button class="delete" onclick="deleteMessage('${key}')">삭제</button>
+          <button class="edit" onclick="editMessage('${key}')">수정</button>
         `;
         messagesList.appendChild(messageItem);
       });
