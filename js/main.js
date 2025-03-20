@@ -311,24 +311,55 @@ window.addEventListener("resize", () => {
 
 
 // 방명록
+// Firebase 모듈을 import합니다.
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+import { getDatabase, ref, push, get } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
+
+// Firebase 프로젝트 설정
+const firebaseConfig = {
+  apiKey: "AIzaSyAaSybKMqwOIr4ODtCWG6-Wb_Ufvqv_Z1k",
+  authDomain: "guest-book-3acdd.firebaseapp.com",
+  databaseURL: "https://guest-book-3acdd-default-rtdb.firebaseio.com",
+  projectId: "guest-book-3acdd",
+  storageBucket: "guest-book-3acdd.firebasestorage.app",
+  messagingSenderId: "559383552501",
+  appId: "1:559383552501:web:4c5143c0666332580040bc",
+  measurementId: "G-BNR8NWDHX2"
+};
+
+// Firebase 초기화
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+
 document.addEventListener("DOMContentLoaded", function () {
-  // Firebase 초기화
-  const firebaseConfig = {
-    apiKey: "AIzaSyAaSybKMqwOIr4ODtCWG6-Wb_Ufvqv_Z1k",
-    authDomain: "guest-book-3acdd.firebaseapp.com",
-    databaseURL: "https://guest-book-3acdd-default-rtdb.firebaseio.com",
-    projectId: "guest-book-3acdd",
-    storageBucket: "guest-book-3acdd.firebasestorage.app",
-    messagingSenderId: "559383552501",
-    appId: "1:559383552501:web:4c5143c0666332580040bc",
-    measurementId: "G-BNR8NWDHX2"
-  };
+  // 방명록 메시지 표시 함수
+  function displayMessages() {
+    const messagesList = document.getElementById('messages_list');
+    messagesList.innerHTML = '';  // 기존 목록 지우기
 
-  // Firebase App 초기화
-  const app = firebase.initializeApp(firebaseConfig);
-  const database = firebase.database();
-
-  displayMessages(); // 페이지 로드 시 기존 메시지 불러오기
+    // Firebase에서 모든 메시지 불러오기
+    const messagesRef = ref(database, 'messages');
+    get(messagesRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        snapshot.forEach(function(childSnapshot) {
+          const msg = childSnapshot.val();
+          const messageItem = document.createElement('li');
+          messageItem.innerHTML = `
+            <div class="text">
+              <strong>${msg.name}</strong>
+              <p>${msg.date}</p> 
+            </div>
+            <p class="msg">${msg.message}</p>
+          `;
+          messagesList.appendChild(messageItem);
+        });
+      } else {
+        console.log("No data available");
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  }
 
   // 방명록 폼 제출 처리
   document.getElementById('guestbook').addEventListener('submit', function (event) {
@@ -345,7 +376,8 @@ document.addEventListener("DOMContentLoaded", function () {
       };
 
       // Firebase에 메시지 저장
-      database.ref('messages').push(messageObj).then(() => {
+      const messagesRef = ref(database, 'messages');
+      push(messagesRef, messageObj).then(() => {
         displayMessages(); // 메시지 표시
         resetForm(); // 폼 초기화
       }).catch((error) => {
@@ -356,49 +388,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Firebase에서 방명록 메시지를 실시간으로 가져오기
-  database.ref('messages').on('child_added', function(snapshot) {
-    const msg = snapshot.val();
-    const messageItem = document.createElement('li');
-    messageItem.innerHTML = `
-      <div class="text">
-        <strong>${msg.name}</strong>
-        <p>${msg.date}</p> 
-      </div>
-      <p class="msg">${msg.message}</p>
-    `;
-    document.getElementById('messages_list').appendChild(messageItem);
-  });
-
-  // 방명록 메시지 표시 함수
-  function displayMessages() {
-    const messagesList = document.getElementById('messages_list');
-    messagesList.innerHTML = '';  // 기존 목록 지우기
-
-    // Firebase에서 모든 메시지 불러오기
-    database.ref('messages').once('value', function(snapshot) {
-      snapshot.forEach(function(childSnapshot) {
-        const msg = childSnapshot.val();
-        const messageItem = document.createElement('li');
-        messageItem.innerHTML = `
-          <div class="text">
-            <strong>${msg.name}</strong>
-            <p>${msg.date}</p> 
-          </div>
-          <p class="msg">${msg.message}</p>
-        `;
-        messagesList.appendChild(messageItem);
-      });
-    });
-  }
-
   // 폼 초기화 함수
   function resetForm() {
     document.getElementById('name').value = '';
     document.getElementById('message').value = '';
   }
-});
 
+  displayMessages(); // 페이지 로드 시 기존 메시지 불러오기
+});
 
 
 
