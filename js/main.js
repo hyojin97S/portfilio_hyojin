@@ -311,10 +311,9 @@ window.addEventListener("resize", () => {
 
 
 // 방명록
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-import { getDatabase, ref, push, set, onChildAdded, remove, get } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
+import { getDatabase, ref, push, set, onChildAdded, remove, get } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-database.js';
 
-// Firebase 설정
 const firebaseConfig = {
   apiKey: "AIzaSyAaSybKMqwOIr4ODtCWG6-Wb_Ufvqv_Z1k",
   authDomain: "guest-book-3acdd.firebaseapp.com",
@@ -326,13 +325,11 @@ const firebaseConfig = {
   measurementId: "G-BNR8NWDHX2"
 };
 
-// Firebase 초기화
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-// 페이지 로드 시 기존 메시지 불러오기
 document.addEventListener("DOMContentLoaded", function () {
-  displayMessages(); // 기존 메시지 표시
+  displayMessages(); // 페이지 로드 시 기존 메시지 불러오기
 
   // 방명록 폼 제출 처리
   document.getElementById('guestbook').addEventListener('submit', function (event) {
@@ -400,13 +397,11 @@ document.addEventListener("DOMContentLoaded", function () {
   // 메시지 수정 함수
   function editMessage(messageId) {
     const messageRef = ref(database, 'messages/' + messageId);
-    get(messageRef).then(snapshot => {
+    get(messageRef).then(function(snapshot) {
       const msg = snapshot.val();
       document.getElementById('name').value = msg.name;
       document.getElementById('message').value = msg.message;
       deleteMessage(messageId); // 수정 시 해당 메시지 삭제
-    }).catch(error => {
-      console.error("Error fetching message data: ", error);
     });
   }
 
@@ -427,27 +422,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Firebase에서 모든 메시지 불러오기
     const messagesRef = ref(database, 'messages');
-    get(messagesRef).then(snapshot => {
-      if (snapshot.exists()) {
-        snapshot.forEach(function(childSnapshot) {
-          const msg = childSnapshot.val();
-          const messageItem = document.createElement('li');
-          messageItem.innerHTML = `
-            <div class="text">
-              <strong>${msg.name}</strong>
-              <p>${msg.date}</p>
-            </div>
-            <p class="msg">${msg.message}</p>
-            <div class="message-actions">
-              <button class="edit" data-id="${childSnapshot.key}">수정</button>
-              <button class="delete" data-id="${childSnapshot.key}">삭제</button>
-            </div>
-          `;
-          messagesList.appendChild(messageItem);
-        });
-      }
-    }).catch(error => {
-      console.error("Error fetching data: ", error);
+    get(messagesRef).then(function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        const msg = childSnapshot.val();
+        const messageItem = document.createElement('li');
+        messageItem.innerHTML = `
+          <div class="text">
+            <strong>${msg.name}</strong>
+            <p>${msg.date}</p>
+          </div>
+          <p class="msg">${msg.message}</p>
+          <div class="message-actions">
+            <button class="edit" data-id="${childSnapshot.key}">수정</button>
+            <button class="delete" data-id="${childSnapshot.key}">삭제</button>
+          </div>
+        `;
+        messagesList.appendChild(messageItem);
+      });
     });
   }
 
