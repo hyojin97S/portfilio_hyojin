@@ -314,6 +314,7 @@ window.addEventListener("resize", () => {
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
 import { getDatabase, ref, push, set, onChildAdded, remove, get } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-database.js';
 
+// Firebase 설정
 const firebaseConfig = {
   apiKey: "AIzaSyAaSybKMqwOIr4ODtCWG6-Wb_Ufvqv_Z1k",
   authDomain: "guest-book-3acdd.firebaseapp.com",
@@ -325,11 +326,13 @@ const firebaseConfig = {
   measurementId: "G-BNR8NWDHX2"
 };
 
+// Firebase 초기화
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 document.addEventListener("DOMContentLoaded", function () {
-  displayMessages(); // 페이지 로드 시 기존 메시지 불러오기
+  // 페이지 로드 시 기존 메시지 불러오기
+  displayMessages();
 
   // 방명록 폼 제출 처리
   document.getElementById('guestbook').addEventListener('submit', function (event) {
@@ -349,7 +352,6 @@ document.addEventListener("DOMContentLoaded", function () {
       const messagesRef = ref(database, 'messages');
       const newMessageRef = push(messagesRef);
       set(newMessageRef, messageObj).then(() => {
-        displayMessages(); // 메시지 표시
         resetForm(); // 폼 초기화
       }).catch((error) => {
         alert('메시지 전송 실패: ' + error.message);
