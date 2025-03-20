@@ -311,7 +311,6 @@ window.addEventListener("resize", () => {
 
 
 // 방명록
-// Firebase 모듈을 import
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
 import { getDatabase, ref, push, set, onChildAdded, remove } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
 
@@ -333,7 +332,7 @@ const database = getDatabase(app);
 
 // 페이지 로드 시 기존 메시지 불러오기
 document.addEventListener("DOMContentLoaded", function () {
-  displayMessages();
+  displayMessages(); // 기존 메시지 표시
 
   // 방명록 폼 제출 처리
   document.getElementById('guestbook').addEventListener('submit', function (event) {
@@ -426,23 +425,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Firebase에서 모든 메시지 불러오기
     const messagesRef = ref(database, 'messages');
-    messagesRef.once('value', function(snapshot) {
-      snapshot.forEach(function(childSnapshot) {
-        const msg = childSnapshot.val();
-        const messageItem = document.createElement('li');
-        messageItem.innerHTML = `
-          <div class="text">
-            <strong>${msg.name}</strong>
-            <p>${msg.date}</p>
-          </div>
-          <p class="msg">${msg.message}</p>
-          <div class="message-actions">
-            <button class="edit" data-id="${childSnapshot.key}">수정</button>
-            <button class="delete" data-id="${childSnapshot.key}">삭제</button>
-          </div>
-        `;
-        messagesList.appendChild(messageItem);
-      });
+    get(messagesRef).then(snapshot => {
+      if (snapshot.exists()) {
+        snapshot.forEach(function(childSnapshot) {
+          const msg = childSnapshot.val();
+          const messageItem = document.createElement('li');
+          messageItem.innerHTML = `
+            <div class="text">
+              <strong>${msg.name}</strong>
+              <p>${msg.date}</p>
+            </div>
+            <p class="msg">${msg.message}</p>
+            <div class="message-actions">
+              <button class="edit" data-id="${childSnapshot.key}">수정</button>
+              <button class="delete" data-id="${childSnapshot.key}">삭제</button>
+            </div>
+          `;
+          messagesList.appendChild(messageItem);
+        });
+      }
+    }).catch(error => {
+      console.error("Error fetching data: ", error);
     });
   }
 
@@ -452,6 +455,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('message').value = '';
   }
 });
+
 
 
 // 인터넷 github
