@@ -312,7 +312,7 @@ window.addEventListener("resize", () => {
 
 // 방명록
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-import { getDatabase, ref, push, set, onChildAdded, remove } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
+import { getDatabase, ref, push, set, onChildAdded, remove, get } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
 
 // Firebase 설정
 const firebaseConfig = {
@@ -400,11 +400,13 @@ document.addEventListener("DOMContentLoaded", function () {
   // 메시지 수정 함수
   function editMessage(messageId) {
     const messageRef = ref(database, 'messages/' + messageId);
-    messageRef.once('value', function(snapshot) {
+    get(messageRef).then(snapshot => {
       const msg = snapshot.val();
       document.getElementById('name').value = msg.name;
       document.getElementById('message').value = msg.message;
       deleteMessage(messageId); // 수정 시 해당 메시지 삭제
+    }).catch(error => {
+      console.error("Error fetching message data: ", error);
     });
   }
 
@@ -455,7 +457,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('message').value = '';
   }
 });
-
 
 
 // 인터넷 github
