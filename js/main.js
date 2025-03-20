@@ -309,23 +309,31 @@ window.addEventListener("resize", () => {
   contactLink.style.pointerEvents = window.innerWidth <= 768 ? "auto" : "none";
 });
 
-// 방명록
-document.addEventListener("DOMContentLoaded", function () {
-  // Firebase 초기화
-  const firebaseConfig = {
-    apiKey: "AIzaSyAaSybKMqwOIr4ODtCWG6-Wb_Ufvqv_Z1k",
-    authDomain: "guest-book-3acdd.firebaseapp.com",
-    databaseURL: "https://guest-book-3acdd-default-rtdb.firebaseio.com",
-    projectId: "guest-book-3acdd",
-    storageBucket: "guest-book-3acdd.firebasestorage.app",
-    messagingSenderId: "559383552501",
-    appId: "1:559383552501:web:4c5143c0666332580040bc",
-    measurementId: "G-BNR8NWDHX2"
-  };
 
-  // Firebase App 초기화
-  const app = firebase.initializeApp(firebaseConfig);
-  const database = firebase.database();
+// 방명록
+// Firebase 모듈을 import
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+import { getDatabase, ref, push, set, onChildAdded, remove } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
+
+// Firebase 설정
+const firebaseConfig = {
+  apiKey: "AIzaSyAaSybKMqwOIr4ODtCWG6-Wb_Ufvqv_Z1k",
+  authDomain: "guest-book-3acdd.firebaseapp.com",
+  databaseURL: "https://guest-book-3acdd-default-rtdb.firebaseio.com",
+  projectId: "guest-book-3acdd",
+  storageBucket: "guest-book-3acdd.firebasestorage.app",
+  messagingSenderId: "559383552501",
+  appId: "1:559383552501:web:4c5143c0666332580040bc",
+  measurementId: "G-BNR8NWDHX2"
+};
+
+// Firebase 초기화
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+
+// 페이지 로드 시 기존 메시지 불러오기
+document.addEventListener("DOMContentLoaded", function () {
+  displayMessages();
 
   // 방명록 폼 제출 처리
   document.getElementById('guestbook').addEventListener('submit', function (event) {
@@ -342,7 +350,10 @@ document.addEventListener("DOMContentLoaded", function () {
       };
 
       // Firebase에 메시지 저장
-      database.ref('messages').push(messageObj).then(() => {
+      const messagesRef = ref(database, 'messages');
+      const newMessageRef = push(messagesRef);
+      set(newMessageRef, messageObj).then(() => {
+        displayMessages(); // 메시지 표시
         resetForm(); // 폼 초기화
       }).catch((error) => {
         alert('메시지 전송 실패: ' + error.message);
@@ -353,16 +364,14 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Firebase에서 방명록 메시지를 실시간으로 가져오기
-  const messagesRef = database.ref('messages');
-  
-  // 새로운 메시지가 추가될 때
-  messagesRef.on('child_added', function(snapshot) {
+  const messagesRef = ref(database, 'messages');
+  onChildAdded(messagesRef, function(snapshot) {
     const msg = snapshot.val();
     const messageItem = document.createElement('li');
     messageItem.innerHTML = `
       <div class="text">
         <strong>${msg.name}</strong>
-        <p>${msg.date}</p> 
+        <p>${msg.date}</p>
       </div>
       <p class="msg">${msg.message}</p>
       <div class="message-actions">
@@ -371,21 +380,6 @@ document.addEventListener("DOMContentLoaded", function () {
       </div>
     `;
     document.getElementById('messages_list').appendChild(messageItem);
-  });
-
-  // 메시지가 수정될 때
-  messagesRef.on('child_changed', function(snapshot) {
-    const msg = snapshot.val();
-    const messageItem = document.querySelector(`[data-id="${snapshot.key}"]`).parentNode;
-    messageItem.querySelector('.text strong').textContent = msg.name;
-    messageItem.querySelector('.text p').textContent = msg.date;
-    messageItem.querySelector('.msg').textContent = msg.message;
-  });
-
-  // 메시지가 삭제될 때
-  messagesRef.on('child_removed', function(snapshot) {
-    const messageItem = document.querySelector(`[data-id="${snapshot.key}"]`).parentNode;
-    messageItem.remove();
   });
 
   // 수정 버튼 클릭 시 동작
@@ -406,7 +400,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 메시지 수정 함수
   function editMessage(messageId) {
-    const messageRef = database.ref('messages/' + messageId);
+    const messageRef = ref(database, 'messages/' + messageId);
     messageRef.once('value', function(snapshot) {
       const msg = snapshot.val();
       document.getElementById('name').value = msg.name;
@@ -417,20 +411,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 메시지 삭제 함수
   function deleteMessage(messageId) {
-    const messageRef = database.ref('messages/' + messageId);
-    messageRef.remove().then(() => {
-      // 메시지 삭제 후, 실시간 업데이트는 Firebase에서 자동으로 처리됩니다.
+    const messageRef = ref(database, 'messages/' + messageId);
+    remove(messageRef).then(() => {
+      displayMessages(); // 메시지 목록 새로 고침
     }).catch((error) => {
       alert('메시지 삭제 실패: ' + error.message);
     });
   }
 
-  // 방명록 메시지 표시 함수 (페이지 로드 시 초기 메시지 표시)
+  // 방명록 메시지 표시 함수
   function displayMessages() {
     const messagesList = document.getElementById('messages_list');
     messagesList.innerHTML = '';  // 기존 목록 지우기
 
     // Firebase에서 모든 메시지 불러오기
+    const messagesRef = ref(database, 'messages');
     messagesRef.once('value', function(snapshot) {
       snapshot.forEach(function(childSnapshot) {
         const msg = childSnapshot.val();
@@ -438,7 +433,7 @@ document.addEventListener("DOMContentLoaded", function () {
         messageItem.innerHTML = `
           <div class="text">
             <strong>${msg.name}</strong>
-            <p>${msg.date}</p> 
+            <p>${msg.date}</p>
           </div>
           <p class="msg">${msg.message}</p>
           <div class="message-actions">
