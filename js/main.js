@@ -312,7 +312,7 @@ window.addEventListener("resize", () => {
 
 // 방명록
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
-import { getDatabase, ref, push, set, onChildAdded, remove, get } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-database.js';
+import { getDatabase, ref, push, set, onChildAdded, remove, onChildRemoved } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-database.js';
 
 // Firebase 설정
 const firebaseConfig = {
@@ -365,6 +365,7 @@ document.addEventListener("DOMContentLoaded", function () {
   onChildAdded(messagesRef, function(snapshot) {
     const msg = snapshot.val();
     const messageItem = document.createElement('li');
+    messageItem.id = snapshot.key; // 메시지에 고유 ID를 부여하여 삭제 시 활용
     messageItem.innerHTML = `
       <div class="text">
         <strong>${msg.name}</strong>
@@ -377,6 +378,14 @@ document.addEventListener("DOMContentLoaded", function () {
       </div>
     `;
     document.getElementById('messages_list').appendChild(messageItem);
+  });
+
+  // 메시지 삭제 시 실시간으로 반영
+  onChildRemoved(messagesRef, function(snapshot) {
+    const messageItem = document.getElementById(snapshot.key);
+    if (messageItem) {
+      messageItem.remove(); // 삭제된 메시지를 화면에서 바로 제거
+    }
   });
 
   // 수정 버튼 클릭 시 동작
@@ -410,36 +419,9 @@ document.addEventListener("DOMContentLoaded", function () {
   function deleteMessage(messageId) {
     const messageRef = ref(database, 'messages/' + messageId);
     remove(messageRef).then(() => {
-      // 삭제 후 실시간으로 목록 업데이트
+      // 삭제 후 실시간으로 목록에서 삭제된 메시지 자동 반영
     }).catch((error) => {
       alert('메시지 삭제 실패: ' + error.message);
-    });
-  }
-
-  // 방명록 메시지 표시 함수 (한 번만 호출)
-  function displayMessages() {
-    const messagesList = document.getElementById('messages_list');
-    messagesList.innerHTML = '';  // 기존 목록 지우기
-
-    // Firebase에서 모든 메시지 불러오기
-    const messagesRef = ref(database, 'messages');
-    get(messagesRef).then(function(snapshot) {
-      snapshot.forEach(function(childSnapshot) {
-        const msg = childSnapshot.val();
-        const messageItem = document.createElement('li');
-        messageItem.innerHTML = `
-          <div class="text">
-            <strong>${msg.name}</strong>
-            <p>${msg.date}</p>
-          </div>
-          <p class="msg">${msg.message}</p>
-          <div class="message-actions">
-            <button class="delete" data-id="${childSnapshot.key}">삭제</button>
-            <button class="edit" data-id="${childSnapshot.key}">수정</button>
-          </div>
-        `;
-        messagesList.appendChild(messageItem);
-      });
     });
   }
 
@@ -448,10 +430,8 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('name').value = '';
     document.getElementById('message').value = '';
   }
-
-  // 페이지 로드 시 기존 메시지 불러오기
-  displayMessages();
 });
+
 
 
 // 인터넷 github
