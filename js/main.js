@@ -331,9 +331,6 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 document.addEventListener("DOMContentLoaded", function () {
-  // 페이지 로드 시 기존 메시지 불러오기
-  displayMessages();
-
   // 방명록 폼 제출 처리
   document.getElementById('guestbook').addEventListener('submit', function (event) {
     event.preventDefault(); // 새로고침 방지
@@ -373,7 +370,7 @@ document.addEventListener("DOMContentLoaded", function () {
       </div>
       <p class="msg">${msg.message}</p>
       <div class="message-actions">
-      <button class="delete" data-id="${snapshot.key}">삭제</button>
+        <button class="delete" data-id="${snapshot.key}">삭제</button>
         <button class="edit" data-id="${snapshot.key}">수정</button>
       </div>
     `;
@@ -411,18 +408,20 @@ document.addEventListener("DOMContentLoaded", function () {
   function deleteMessage(messageId) {
     const messageRef = ref(database, 'messages/' + messageId);
     remove(messageRef).then(() => {
+      // 삭제 후 실시간으로 목록 업데이트
+      document.getElementById('messages_list').innerHTML = ''; // 기존 목록 지우기
       displayMessages(); // 메시지 목록 새로 고침
     }).catch((error) => {
       alert('메시지 삭제 실패: ' + error.message);
     });
   }
 
-  // 방명록 메시지 표시 함수
+  // 방명록 메시지 표시 함수 (한 번만 호출)
   function displayMessages() {
     const messagesList = document.getElementById('messages_list');
     messagesList.innerHTML = '';  // 기존 목록 지우기
 
-    // Firebase에서 모든 메시지 불러오기 (한 번만)
+    // Firebase에서 모든 메시지 불러오기
     const messagesRef = ref(database, 'messages');
     get(messagesRef).then(function(snapshot) {
       snapshot.forEach(function(childSnapshot) {
@@ -435,7 +434,7 @@ document.addEventListener("DOMContentLoaded", function () {
           </div>
           <p class="msg">${msg.message}</p>
           <div class="message-actions">
-          <button class="delete" data-id="${childSnapshot.key}">삭제</button>
+            <button class="delete" data-id="${childSnapshot.key}">삭제</button>
             <button class="edit" data-id="${childSnapshot.key}">수정</button>
           </div>
         `;
@@ -449,6 +448,9 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('name').value = '';
     document.getElementById('message').value = '';
   }
+
+  // 페이지 로드 시 기존 메시지 불러오기
+  displayMessages();
 });
 
 
