@@ -312,8 +312,25 @@ window.addEventListener("resize", () => {
 
 // 방명록
 document.addEventListener("DOMContentLoaded", function () {
-  displayMessages();
+  // Firebase 초기화
+  const firebaseConfig = {
+    apiKey: "AIzaSyAaSybKMqwOIr4ODtCWG6-Wb_Ufvqv_Z1k",
+    authDomain: "guest-book-3acdd.firebaseapp.com",
+    databaseURL: "https://guest-book-3acdd-default-rtdb.firebaseio.com",
+    projectId: "guest-book-3acdd",
+    storageBucket: "guest-book-3acdd.firebasestorage.app",
+    messagingSenderId: "559383552501",
+    appId: "1:559383552501:web:4c5143c0666332580040bc",
+    measurementId: "G-BNR8NWDHX2"
+  };
+  
+  // Firebase App 초기화
+  const app = firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
+  
+  displayMessages(); // 페이지 로드 시 기존 메시지 불러오기
 
+  // 방명록 폼 제출 처리
   document.getElementById('guestbook').addEventListener('submit', function (event) {
     event.preventDefault();
     
@@ -325,38 +342,60 @@ document.addEventListener("DOMContentLoaded", function () {
         name,
         message,
         date: new Date().toLocaleString(),
-        id: Date.now()
       };
 
-      const messages = getMessages();
-      messages.push(messageObj);
-      saveMessages(messages);
-      displayMessages();
+      // Firebase Realtime Database에 새 메시지 추가
+      database.ref('messages').push(messageObj);
+
+      // 폼 초기화
       resetForm();
     } else {
       alert("이름과 메시지를 모두 입력해주세요.");
     }
   });
 
+  // Firebase에서 방명록 메시지를 실시간으로 가져오기
+  database.ref('messages').on('child_added', function(snapshot) {
+    const msg = snapshot.val();
+    displayMessage(msg);
+  });
+
+  // 방명록 메시지 표시 함수
   function displayMessages() {
     const messagesList = document.getElementById('messages_list');
     messagesList.innerHTML = '';
 
-    getMessages().forEach(msg => {
-      const messageItem = document.createElement('li');
-      messageItem.innerHTML = `
-        <div class="text">
-        <strong>${msg.name}</strong>                
-        <p>${msg.date})</p> 
-        </div>
-        <p class="msg">${msg.message}</p>
-        <button class="delete" onclick="deleteMessage(${msg.id})">삭제</button>
-        <button class="edit" onclick="editMessage(${msg.id})">수정</button>
-      `;
-      messagesList.appendChild(messageItem);
+    // Firebase에서 모든 메시지 불러오기
+    database.ref('messages').once('value', function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        const msg = childSnapshot.val();
+        displayMessage(msg);
+      });
     });
   }
 
+  // 메시지 추가 함수
+  function displayMessage(msg) {
+    const messagesList = document.getElementById('messages_list');
+    const messageItem = document.createElement('li');
+    messageItem.innerHTML = `
+      <div class="text">
+        <strong>${msg.name}</strong>
+        <p>${msg.date})</p> 
+      </div>
+      <p class="msg">${msg.message}</p>
+      <button class="delete" onclick="deleteMessage('${msg.id}')">삭제</button>
+      <button class="edit" onclick="editMessage('${msg.id}')">수정</button>
+    `;
+    messagesList.appendChild(messageItem);
+  }
+
+  // 메시지 삭제 함수
+  window.deleteMessage = function(id) {
+    database.ref('messages').child(id).remove();
+  };
+
+  // 메시지 수정 함수
   window.editMessage = function(id) {
     const messages = getMessages();
     const message = messages.find(msg => msg.id === id);
@@ -365,25 +404,13 @@ document.addEventListener("DOMContentLoaded", function () {
     deleteMessage(id);
   };
 
-  window.deleteMessage = function(id) {
-    const messages = getMessages().filter(msg => msg.id !== id);
-    saveMessages(messages);
-    displayMessages();
-  };
-
-  function getMessages() {
-    return JSON.parse(localStorage.getItem('messages')) || [];
-  }
-
-  function saveMessages(messages) {
-    localStorage.setItem('messages', JSON.stringify(messages));
-  }
-
+  // 폼 초기화 함수
   function resetForm() {
     document.getElementById('name').value = '';
     document.getElementById('message').value = '';
   }
 });
+
 
 
 
