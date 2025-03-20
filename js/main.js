@@ -313,7 +313,7 @@ window.addEventListener("resize", () => {
 // 방명록
 // Firebase 모듈을 import합니다.
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-import { getDatabase, ref, push, get } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
+import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
 
 // Firebase 프로젝트 설정
 const firebaseConfig = {
@@ -332,32 +332,27 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 document.addEventListener("DOMContentLoaded", function () {
-  // 방명록 메시지 표시 함수
+  // 방명록 메시지 표시 함수 (실시간 데이터 동기화)
   function displayMessages() {
     const messagesList = document.getElementById('messages_list');
     messagesList.innerHTML = '';  // 기존 목록 지우기
 
-    // Firebase에서 모든 메시지 불러오기
+    // Firebase에서 메시지 불러오기 (실시간으로 변경 사항 반영)
     const messagesRef = ref(database, 'messages');
-    get(messagesRef).then((snapshot) => {
-      if (snapshot.exists()) {
-        snapshot.forEach(function(childSnapshot) {
-          const msg = childSnapshot.val();
-          const messageItem = document.createElement('li');
-          messageItem.innerHTML = `
-            <div class="text">
-              <strong>${msg.name}</strong>
-              <p>${msg.date}</p> 
-            </div>
-            <p class="msg">${msg.message}</p>
-          `;
-          messagesList.appendChild(messageItem);
-        });
-      } else {
-        console.log("No data available");
-      }
-    }).catch((error) => {
-      console.error(error);
+    onValue(messagesRef, (snapshot) => {
+      messagesList.innerHTML = '';  // 초기화
+      snapshot.forEach(function(childSnapshot) {
+        const msg = childSnapshot.val();
+        const messageItem = document.createElement('li');
+        messageItem.innerHTML = `
+          <div class="text">
+            <strong>${msg.name}</strong>
+            <p>${msg.date}</p> 
+          </div>
+          <p class="msg">${msg.message}</p>
+        `;
+        messagesList.appendChild(messageItem);
+      });
     });
   }
 
@@ -396,8 +391,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   displayMessages(); // 페이지 로드 시 기존 메시지 불러오기
 });
-
-
 
 
 // 인터넷 github
