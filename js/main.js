@@ -331,6 +331,9 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 document.addEventListener("DOMContentLoaded", function () {
+  // 페이지 로드 시 기존 메시지 불러오기
+  displayMessages();
+
   // 방명록 폼 제출 처리
   document.getElementById('guestbook').addEventListener('submit', function (event) {
     event.preventDefault(); // 새로고침 방지
@@ -409,8 +412,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const messageRef = ref(database, 'messages/' + messageId);
     remove(messageRef).then(() => {
       // 삭제 후 실시간으로 목록 업데이트
-      document.getElementById('messages_list').innerHTML = ''; // 기존 목록 지우기
-      displayMessages(); // 메시지 목록 새로 고침
     }).catch((error) => {
       alert('메시지 삭제 실패: ' + error.message);
     });
@@ -448,9 +449,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('name').value = '';
     document.getElementById('message').value = '';
   }
-
-  // 페이지 로드 시 기존 메시지 불러오기
-  displayMessages();
 });
 
 
