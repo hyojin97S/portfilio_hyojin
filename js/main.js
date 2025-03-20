@@ -373,8 +373,8 @@ document.addEventListener("DOMContentLoaded", function () {
       </div>
       <p class="msg">${msg.message}</p>
       <div class="message-actions">
+      <button class="delete" data-id="${snapshot.key}">삭제</button>
         <button class="edit" data-id="${snapshot.key}">수정</button>
-        <button class="delete" data-id="${snapshot.key}">삭제</button>
       </div>
     `;
     document.getElementById('messages_list').appendChild(messageItem);
@@ -422,7 +422,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const messagesList = document.getElementById('messages_list');
     messagesList.innerHTML = '';  // 기존 목록 지우기
 
-    // Firebase에서 모든 메시지 불러오기
+    // Firebase에서 모든 메시지 불러오기 (한 번만)
     const messagesRef = ref(database, 'messages');
     get(messagesRef).then(function(snapshot) {
       snapshot.forEach(function(childSnapshot) {
@@ -435,8 +435,8 @@ document.addEventListener("DOMContentLoaded", function () {
           </div>
           <p class="msg">${msg.message}</p>
           <div class="message-actions">
+          <button class="delete" data-id="${childSnapshot.key}">삭제</button>
             <button class="edit" data-id="${childSnapshot.key}">수정</button>
-            <button class="delete" data-id="${childSnapshot.key}">삭제</button>
           </div>
         `;
         messagesList.appendChild(messageItem);
