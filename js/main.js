@@ -331,9 +331,6 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 document.addEventListener("DOMContentLoaded", function () {
-  // 페이지 로드 시 기존 메시지 불러오기
-  displayMessages();
-
   // 방명록 폼 제출 처리
   document.getElementById('guestbook').addEventListener('submit', function (event) {
     event.preventDefault(); // 새로고침 방지
@@ -363,6 +360,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Firebase에서 방명록 메시지를 실시간으로 가져오기
   const messagesRef = ref(database, 'messages');
+
+  // 메시지 추가 시 실시간으로 화면에 반영
   onChildAdded(messagesRef, function(snapshot) {
     const msg = snapshot.val();
     const messageItem = document.createElement('li');
@@ -449,6 +448,9 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('name').value = '';
     document.getElementById('message').value = '';
   }
+
+  // 페이지 로드 시 기존 메시지 불러오기
+  displayMessages();
 });
 
 
