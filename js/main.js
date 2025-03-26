@@ -312,7 +312,7 @@ window.addEventListener("resize", () => {
 
 // 방명록
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
-import { getDatabase, ref, push, set, onChildAdded, remove, onChildRemoved } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-database.js';
+import { getDatabase, ref, push, set, onChildAdded, remove, get, onChildRemoved } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-database.js';
 
 // Firebase 설정
 const firebaseConfig = {
@@ -411,7 +411,32 @@ document.addEventListener("DOMContentLoaded", function () {
       const msg = snapshot.val();
       document.getElementById('name').value = msg.name;
       document.getElementById('message').value = msg.message;
-      deleteMessage(messageId); // 수정 시 해당 메시지 삭제
+
+      // 수정 완료 후 처리
+      document.getElementById('guestbook').addEventListener('submit', function editSubmit(event) {
+        event.preventDefault(); // 새로고침 방지
+
+        const name = document.getElementById('name').value;
+        const message = document.getElementById('message').value;
+
+        if (name && message) {
+          const updatedMessage = {
+            name,
+            message,
+            date: new Date().toLocaleString(),
+          };
+
+          // Firebase에 수정된 메시지 업데이트
+          set(messageRef, updatedMessage).then(() => {
+            resetForm(); // 폼 초기화
+            document.getElementById('guestbook').removeEventListener('submit', editSubmit); // 수정 완료 후 이벤트 리스너 제거
+          }).catch((error) => {
+            alert('메시지 수정 실패: ' + error.message);
+          });
+        } else {
+          alert("이름과 메시지를 모두 입력해주세요.");
+        }
+      });
     });
   }
 
@@ -431,6 +456,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('message').value = '';
   }
 });
+
 
 
 
