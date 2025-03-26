@@ -412,8 +412,12 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById('name').value = msg.name;
       document.getElementById('message').value = msg.message;
 
-      // 수정 완료 후 처리
-      document.getElementById('guestbook').addEventListener('submit', function editSubmit(event) {
+      // 수정할 때 포커스를 자동으로 설정
+      document.getElementById('name').focus(); // 이름 입력 필드에 포커스
+      document.getElementById('message').focus(); // 메시지 입력 필드에 포커스
+
+      // 폼 제출 시 수정 처리
+      const formSubmit = function editSubmit(event) {
         event.preventDefault(); // 새로고침 방지
 
         const name = document.getElementById('name').value;
@@ -429,10 +433,9 @@ document.addEventListener("DOMContentLoaded", function () {
           // 기존 메시지 삭제
           remove(messageRef).then(() => {
             // Firebase에 수정된 메시지 업데이트
-            const newMessageRef = push(ref(database, 'messages'));
-            set(newMessageRef, updatedMessage).then(() => {
+            set(messageRef, updatedMessage).then(() => {
               resetForm(); // 폼 초기화
-              document.getElementById('guestbook').removeEventListener('submit', editSubmit); // 수정 완료 후 이벤트 리스너 제거
+              document.getElementById('guestbook').removeEventListener('submit', formSubmit); // 수정 완료 후 이벤트 리스너 제거
             }).catch((error) => {
               alert('메시지 수정 실패: ' + error.message);
             });
@@ -442,7 +445,10 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
           alert("이름과 메시지를 모두 입력해주세요.");
         }
-      });
+      };
+
+      // 수정 이벤트 리스너 추가
+      document.getElementById('guestbook').addEventListener('submit', formSubmit);
     });
   }
 
@@ -462,8 +468,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('message').value = '';
   }
 });
-
-
 
 
 // 인터넷 github
