@@ -430,17 +430,12 @@ document.addEventListener("DOMContentLoaded", function () {
             date: new Date().toLocaleString(),
           };
 
-          // 기존 메시지 삭제
-          remove(messageRef).then(() => {
-            // Firebase에 수정된 메시지 업데이트
-            set(messageRef, updatedMessage).then(() => {
-              resetForm(); // 폼 초기화
-              document.getElementById('guestbook').removeEventListener('submit', formSubmit); // 수정 완료 후 이벤트 리스너 제거
-            }).catch((error) => {
-              alert('메시지 수정 실패: ' + error.message);
-            });
+          // Firebase에서 메시지 수정 (기존 메시지 위치에서 업데이트)
+          set(messageRef, updatedMessage).then(() => {
+            resetForm(); // 폼 초기화
+            document.getElementById('guestbook').removeEventListener('submit', formSubmit); // 수정 완료 후 이벤트 리스너 제거
           }).catch((error) => {
-            alert('기존 메시지 삭제 실패: ' + error.message);
+            alert('메시지 수정 실패: ' + error.message);
           });
         } else {
           alert("이름과 메시지를 모두 입력해주세요.");
