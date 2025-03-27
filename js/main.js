@@ -417,7 +417,7 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById('message').focus(); // 메시지 입력 필드에 포커스
 
       // 폼 제출 시 수정 처리
-      const formSubmit = function editSubmit(event) {
+      const formSubmit = function(event) {
         event.preventDefault(); // 새로고침 방지
 
         const name = document.getElementById('name').value;
