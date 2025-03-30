@@ -374,7 +374,6 @@ document.addEventListener("DOMContentLoaded", function () {
       <p class="msg">${msg.message}</p>
       <div class="message-actions">
         <button class="delete" data-id="${snapshot.key}">삭제</button>
-        <button class="edit" data-id="${snapshot.key}">수정</button>
       </div>
     `;
     document.getElementById('messages_list').appendChild(messageItem);
@@ -388,14 +387,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // 수정 버튼 클릭 시 동작
-  document.getElementById('messages_list').addEventListener('click', function(event) {
-    if (event.target && event.target.classList.contains('edit')) {
-      const messageId = event.target.getAttribute('data-id');
-      editMessage(messageId);
-    }
-  });
-
   // 삭제 버튼 클릭 시 동작
   document.getElementById('messages_list').addEventListener('click', function(event) {
     if (event.target && event.target.classList.contains('delete')) {
@@ -403,49 +394,6 @@ document.addEventListener("DOMContentLoaded", function () {
       deleteMessage(messageId);
     }
   });
-
-  // 메시지 수정 함수
-  function editMessage(messageId) {
-    const messageRef = ref(database, 'messages/' + messageId);
-    get(messageRef).then(function(snapshot) {
-      const msg = snapshot.val();
-      document.getElementById('name').value = msg.name;
-      document.getElementById('message').value = msg.message;
-
-      // 수정할 때 포커스를 자동으로 설정
-      document.getElementById('name').focus(); // 이름 입력 필드에 포커스
-      document.getElementById('message').focus(); // 메시지 입력 필드에 포커스
-
-      // 폼 제출 시 수정 처리
-      const formSubmit = function(event) {
-        event.preventDefault(); // 새로고침 방지
-
-        const name = document.getElementById('name').value;
-        const message = document.getElementById('message').value;
-
-        if (name && message) {
-          const updatedMessage = {
-            name,
-            message,
-            date: new Date().toLocaleString(),
-          };
-
-          // Firebase에서 메시지 수정 (기존 메시지 위치에서 업데이트)
-          set(messageRef, updatedMessage).then(() => {
-            resetForm(); // 폼 초기화
-            document.getElementById('guestbook').removeEventListener('submit', formSubmit); // 수정 완료 후 이벤트 리스너 제거
-          }).catch((error) => {
-            alert('메시지 수정 실패: ' + error.message);
-          });
-        } else {
-          alert("이름과 메시지를 모두 입력해주세요.");
-        }
-      };
-
-      // 수정 이벤트 리스너 추가
-      document.getElementById('guestbook').addEventListener('submit', formSubmit);
-    });
-  }
 
   // 메시지 삭제 함수
   function deleteMessage(messageId) {
